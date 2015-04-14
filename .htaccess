@@ -1,0 +1,11 @@
+php_value mbstring.func_overload 7
+php_value mbstring.internal_encoding UTF-8
+php_value default_charset UTF-8
+php_value mbstring.http_output UTF-8
+php_value mbstring.encoding_translation On
+php_value mbstring.detect_order UTF-8
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ public/index.php [PT,L,QSA,NE]

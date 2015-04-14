@@ -1,0 +1,142 @@
+{
+    "minimum-stability": "dev",
+    "name": "robvanaarle/aviko_tournament_schedule",
+    "description": "Web application to create and view schedules for the Aviko Tournament.",
+    "type": "project",
+    "keywords": [
+        "Aviko",
+        "Tournament",
+        "Schedule"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+	  		{
+	    	  "name": "Rob van Aarle"
+	  		}
+	  ],
+    "repositories": [
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-error"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-phptpl"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-phptpl-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-acl"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-acl-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-session"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-validation"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-http"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-config"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-config-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-form"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-form-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-locale"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-locale-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-translate"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-translate-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-orm"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-orm-mvc"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-html"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-css"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-slug"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-filemtimecache"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ultimo-cache"
+      	},
+      	{
+        	"type": "vcs",
+        	"url": "https://github.com/robvanaarle/ucms-user"
+      	}
+    ],
+    "require": {
+        "robvanaarle/ultimo-mvc": "dev-master",
+        "robvanaarle/ultimo-error": "dev-master",
+        "robvanaarle/ultimo-form-mvc": "dev-master",
+        "robvanaarle/ultimo-acl-mvc": "dev-master",
+        "robvanaarle/ultimo-config-mvc": "dev-master",
+        "robvanaarle/ultimo-locale-mvc": "dev-master",
+        "robvanaarle/ultimo-translate-mvc": "dev-master",
+        "robvanaarle/ultimo-orm-mvc": "dev-master",
+        "robvanaarle/ultimo-filemtimecache": "dev-master",
+        "robvanaarle/ucms-user": "dev-master"
+    },
+    "autoload": {
+    		"psr-4": {
+       			"modules\\": "modules/",
+       			"ats\\": "library/php/ats/"
+    		}
+  }
+}
+
