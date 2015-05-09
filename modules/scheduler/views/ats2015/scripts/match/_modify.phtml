@@ -1,0 +1,45 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <?php if ($this->action == 'update'): ?>
+  <input type="hidden" name="id" value="<?php echo $this->match->id ?>" />
+  <?php endif ?>
+  
+  <dl>
+    <dt><label for="starts_at">Datum/tijd</label></dt>
+    <dd><?php echo $this->locale()->getFormatter()->formatDateTime($this->match->starts_at, 'short') ?></dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="field">Veld</label></dt>
+    <dd><?php echo $this->escape($this->match->field->name)?></dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="group">Poule</label></dt>
+    <dd><?php echo $this->escape($this->match->group->name)?></dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="goals_home"><?php echo $this->escape($this->match->home_team->name) ?></label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'goals_home')?>
+      <input type="text" name="form[goals_home]" id="goals_home" value="<?php echo $this->escape($this->form['goals_home'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="goals_away"><?php echo $this->escape($this->match->away_team->name) ?></label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'goals_away')?>
+      <input type="text" name="form[goals_away]" id="goals_away" value="<?php echo $this->escape($this->form['goals_away'])?>" />
+    </dd>
+  </dl>
+  
+  
+  
+  <dl>
+    <dd>
+      <input type="submit" value="<?php echo $this->action?>" />
+    </dd>
+  </dl>
+</form>

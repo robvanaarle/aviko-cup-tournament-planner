@@ -20,10 +20,11 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     $uormPlugin->addGlobalModel('`user_user`', 'User', '\ucms\user\models');
     
     if ($this->application->getEnvironment() == 'development') {
-      $uormPlugin->addConnection('master', 'mysql:dbname=ultimo;host=127.0.0.1', 'root');
+      $uormPlugin->addConnection('master', 'mysql:dbname=aviko;host=127.0.0.1', 'root');
     } else {
       
     }
+    
     $this->application->addPlugin($uormPlugin, 'uorm');
     $this->application->addPlugin($this);
     

@@ -7,5 +7,10 @@ php_value mbstring.detect_order UTF-8
 
 RewriteEngine On
 
+# rewrite root for lan
+RewriteCond %{HTTP_HOST} aviko.lan$
+RewriteCond %{REQUEST_URI} !^/public/.*$
+RewriteRule ^(.*)$ public/$1
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ public/index.php [PT,L,QSA,NE]
