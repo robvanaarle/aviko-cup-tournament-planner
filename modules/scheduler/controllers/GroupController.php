@@ -20,10 +20,11 @@ class GroupController extends \ultimo\mvc\Controller {
       throw new \ultimo\mvc\exceptions\DispatchException("Group with id '{$id}' does not exist.", 404);
     }
     
-    $this->view->tournament = $this->manager->Tournament->get($group->tournament_id);
-    $this->view->teams = $this->manager->Team->forGroup($group->id)->all();
-    $this->view->matches = $this->manager->Match->withTeamsAndField()->forGroup($group->id)->all();
+    $this->view->tournament = $group->related('tournament')->first();
+    $this->view->teams = $group->teams()->all();
+    $this->view->matches = $group->related('matches')->withTeamsAndField()->all();
     $this->view->group = $group;
+    $this->view->standings = $group->related('standings')->orderByIndex()->withTeam()->all();
   }
   
   public function actionMove() {
@@ -37,6 +38,17 @@ class GroupController extends \ultimo\mvc\Controller {
     $group->move($this->request->getParam('count', 0));
     
     return $this->getPlugin('redirector')->redirect(array('action' => 'read', 'controller' => 'tournament', 'id' => $group->tournament_id));
+  }
+  
+  public function actionSyncstandings() {
+    $id = $this->request->getParam('id');
+    $group = $this->manager->Group->get($id);
+    
+    if ($group === null) {
+      throw new \ultimo\mvc\exceptions\DispatchException("Group with id '{$id}' does not exist.", 404);
+    }
+    
+    $group->syncStandings();
   }
   
 }

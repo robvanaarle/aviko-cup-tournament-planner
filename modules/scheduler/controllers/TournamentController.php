@@ -23,9 +23,9 @@ class TournamentController extends \ultimo\mvc\Controller {
     if ($tournament === null) {
       throw new \ultimo\mvc\exceptions\DispatchException("Tournament with id '{$id}' does not exist.", 404);
     }
-    
-    $this->view->groups = $this->manager->Group->forTournament($id)->orderByIndex()->all();
-    $this->view->matches = $this->manager->Match->forTournament($id)->withTeamsAndField()->all();
+
+    $this->view->groups = $tournament->related('groups')->orderByIndex()->all();
+    $this->view->matches = $tournament->matches()->withTeamsAndField()->all();
     $this->view->tournament = $tournament;
   }
   

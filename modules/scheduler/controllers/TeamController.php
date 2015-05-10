@@ -21,7 +21,7 @@ class TeamController extends \ultimo\mvc\Controller {
     }
     
     $this->view->team = $team;
-    $this->view->matches = $this->manager->Match->forTeam($team->id)->withTeamsAndField()->withGroupAndTournament()->all();
+    $this->view->matches = $team->matches()->withTeamsAndField()->withGroupAndTournament()->all();
   }
   
   public function actionUpdate() {

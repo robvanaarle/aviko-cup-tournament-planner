@@ -17,9 +17,9 @@ class Field extends \ultimo\orm\Model {
     'matches' => array('Match', array('id' => 'field_id', self::ONE_TO_MANY)),
   );
   
-  static protected $scopes = array('forFieldType');
+  static protected $scopes = array('withFieldType');
   
-  static public function forFieldType($field_type) {
+  static public function withFieldType($field_type) {
     return function ($q) use ($field_type) {
       $q->where('@field_type = ?', array($field_type))
         ->order('@index', 'ASC');

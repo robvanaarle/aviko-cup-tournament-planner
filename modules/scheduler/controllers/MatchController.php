@@ -31,6 +31,9 @@ class MatchController extends \ultimo\mvc\Controller {
         $match->goals_away = empty($form['goals_away']) ? null : $form['goals_away'];
         $match->save();
         
+        $group = $this->manager->Group->get($match->group_id);
+        $group->syncStandings();
+        
         $tournament = $this->manager->Tournament->byGroup($match->group_id)->first();
         
         return $this->getPlugin('redirector')->redirect(array('controller' => 'tournament', 'action' => 'read', 'id' => $tournament->id));

@@ -11,8 +11,6 @@ class Tournament extends \ultimo\orm\Model {
   public $starts_at;
   public $index;
   
-  public $groups = array();
-  
   const FIELD_TYPE_WHOLE = 'whole';
   const FIELD_TYPE_HALF = 'half';
   
@@ -34,6 +32,18 @@ class Tournament extends \ultimo\orm\Model {
     };
   }
   
+  public function matches() {
+    $model = $this;
+    $staticModel = $this->_manager->getStaticModel('Match');
+    $staticModel->scope(function ($q) use ($model) {
+      $q->with('@group')
+        ->where('@group.tournament_id = ?', array($model->id))
+        ->order('starts_at', 'ASC')
+        ->order('id', 'ASC');
+    });
+    return $staticModel;
+  }
+  
   public function regenerateSchedule() {
     $groups = $this->_manager->Group->forTournament($this->id)->all();
     
@@ -45,7 +55,7 @@ class Tournament extends \ultimo\orm\Model {
     foreach ($groups as $group) {
       $this->_manager->Match->query()->where('@group_id = ?', array($group->id))->delete();
       
-      $teams = $this->_manager->Team->forGroup($group->id)->all();
+      $teams = $group->teams()->all();
       $scheduler = new \ats\SingleRoundRobin($teams);
       $schedule = $scheduler->generateSchedule();
       $groupSchedules[$group->id] = $schedule;
@@ -62,12 +72,12 @@ class Tournament extends \ultimo\orm\Model {
     
     $startsAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->starts_at);
     $duration = new \DateInterval("PT" . ($this->match_duration + $this->between_duration) . "M");
-    $fields = $this->_manager->Field->forFieldType($this->field_type)->all();
+    $fields = $this->_manager->Field->withFieldType($this->field_type)->all();
     
     
     $fieldIndex = 0;
     $teamsThisTimeslot = array();
-    
+    $matchObjects = array();
     for ($roundIndex = 0; $roundIndex < $maxRounds; $roundIndex++) {
       
       
@@ -97,7 +107,7 @@ class Tournament extends \ultimo\orm\Model {
           $matchObject->starts_at = $startsAt->format("Y-m-d H:i:s");
           $matchObject->group_id = $groupId;
           $matchObject->referee = '';
-          $matchObject->save();
+          $matchObjects[] = $matchObject;
           
           //echo "match {$matchIndex} of round {$roundIndex} for group {$groupId} at field {$fieldIndex}<br />";
           
@@ -112,6 +122,7 @@ class Tournament extends \ultimo\orm\Model {
         }
       }
     }
+    $this->_manager->Match->multiInsert($matchObjects);
   }
   
   

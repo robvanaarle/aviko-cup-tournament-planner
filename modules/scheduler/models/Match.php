@@ -23,7 +23,7 @@ class Match extends \ultimo\orm\Model {
     'field' => array('Field', array('field_id' => 'id'), self::MANY_TO_ONE)
   );
   
-  static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 'withGroup', 'forTeam', 'withGroupAndTournament');
+  static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 'withGroup', 'forTeam', 'withGroupAndTournament', 'played');
   
   static public function forGroup($group_id) {
     return function ($q) use ($group_id) {
@@ -50,6 +50,18 @@ class Match extends \ultimo\orm\Model {
     };
   }
   
+  static public function notPlayed() {
+    return function ($q) {
+      $q->where('@goals_home IS NULL OR @goals_awa IS NULL');
+    };
+  }
+  
+  static public function played() {
+    return function ($q) {
+      $q->where('@goals_home IS NOT NULL AND @goals_away IS NOT NULL');
+    };
+  }
+  
   static public function withGroup() {
     return function ($q) {
       $q->with('@group');
@@ -69,5 +81,17 @@ class Match extends \ultimo\orm\Model {
         ->with('@away_team')
         ->with('@field');
     };
+  }
+  
+  public function homeWins() {
+    return $this->goals_home > $this->goals_away;
+  }
+    
+  public function awayWins() { 
+    return $this->goals_away > $this->goals_home;
+  }
+    
+  public function tie() {
+    return $this->goals_away == $this->goals_home;
   }
 }
