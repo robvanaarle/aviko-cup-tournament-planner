@@ -2,7 +2,7 @@
 
 namespace modules\scheduler\models;
 
-class Standing extends \ultimo\orm\Model {
+class Standing extends \ultimo\orm\Model implements \ats\Standing {
   public $id;
   public $group_id;
   public $team_id;
@@ -39,6 +39,12 @@ class Standing extends \ultimo\orm\Model {
     };
   }
   
+  static public function withGroup() {
+    return function ($q) {
+      $q->with('@group');
+    };
+  }
+  
   public function reset() {
     $this->won = 0;
     $this->drawn = 0;
@@ -63,7 +69,7 @@ class Standing extends \ultimo\orm\Model {
     return $this->index + 1;
   }
   
-  public function compareTo(Standing $standing) {
+  public function compareTo(\ats\Standing $standing) {
     if ($this->getPoints() > $standing->getPoints()) {
       return 1;
     } elseif ($this->getPoints() < $standing->getPoints()) {
@@ -83,5 +89,24 @@ class Standing extends \ultimo\orm\Model {
     }
 
     return 0;
+  }
+  
+  public function equals(\ats\Standing $standing) {
+    return $this->team_id == $standing->team_id;
+  }
+
+  public function __toString() {
+    if (isset($this->team)) {
+      return $this->team->name;
+    } else {
+      return $this->team_id;
+    }
+  }
+  
+  static public function sort(array $standings) {
+    usort($standings, function($a, $b) {
+      return $b->compareTo($a);
+    });
+    return $standings;
   }
 }

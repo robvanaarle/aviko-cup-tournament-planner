@@ -1,0 +1,35 @@
+<table border="1px solid #000">
+  <?php if (isset($this->caption)): ?>
+  <tr>
+    <th colspan="11"><?php echo $this->escape($this->caption) ?></th>
+  </tr>
+  <?php endif ?>
+  <tr>
+    <th></th>
+    <th>Team</th>
+    <th>GW</th>
+    <th>W</th>
+    <th>G</th>
+    <th>V</th>
+    <th></th>
+    <th>P</th>
+    <th></th>
+    <th>GD</th>
+    <th>V-T</th>
+  </tr>
+  <?php foreach ($this->standings as $standing): ?>
+  <tr>
+    <td><?php echo $standing->getPosition() ?>.</td>
+    <td><a href="<?php echo $this->url(array('controller' => 'team', 'action' => 'read', 'id' => $standing->team->id)) ?>"><?php echo $this->escape($standing->team->name) ?></a></td>
+    <td><?php echo $standing->getPlayed() ?></td>
+    <td><?php echo $standing->won ?></td>
+    <td><?php echo $standing->drawn ?></td>
+    <td><?php echo $standing->lost ?></td>
+    <td></td>
+    <td><?php echo $standing->getPoints() ?></td>
+    <td></td>
+    <td><?php echo $standing->getGoalsDifference() ?></td>
+    <td><?php echo $standing->goals_for ?>-<?php echo $standing->goals_against ?></td>
+  </tr>
+  <?php endforeach ?>
+</table>

@@ -7,6 +7,10 @@
 <b>Datum</b>: <?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?><br />
 <b>Wedstrijd duur</b>: <?php echo $this->tournament->match_duration ?> mins<br />
 <b>Tussen duur</b>: <?php echo $this->tournament->between_duration ?> mins<br />
+<form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'nextphase')) ?>">
+  <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
+  <input type="submit" value="Volgende fase" />
+</form>
 
 <br />
 <b>Poules:</b>

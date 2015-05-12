@@ -22,38 +22,12 @@
 
 <br />
 <b>Stand:</b>
-<table border="1px solid #000">
-  <tr>
-    <th></th>
-    <th>Team</th>
-    <th>G</th>
-    <th>W</th>
-    <th>G</th>
-    <th>V</th>
-    <th></th>
-    <th>DV</th>
-    <th>DT</th>
-    <th>DV</th>
-    <th></th>
-    <th>P</th>
-  </tr>
-  <?php foreach ($this->standings as $standing): ?>
-  <tr>
-    <td><?php echo $standing->getPosition() ?>.</td>
-    <td><a href="<?php echo $this->url(array('controller' => 'team', 'action' => 'read', 'id' => $standing->team->id)) ?>"><?php echo $this->escape($standing->team->name) ?></a></td>
-    <td><?php echo $standing->getPlayed() ?></td>
-    <td><?php echo $standing->won ?></td>
-    <td><?php echo $standing->drawn ?></td>
-    <td><?php echo $standing->lost ?></td>
-    <td></td>
-    <td><?php echo $standing->goals_for ?></td>
-    <td><?php echo $standing->goals_against ?></td>
-    <td><?php echo $standing->getGoalsDifference() ?></td>
-    <td></td>
-    <td><?php echo $standing->getPoints() ?></td>
-  </tr>
-  <?php endforeach ?>
-</table>
+<?php echo $this->partial('standing/_table.phtml', array('standings' => $this->standings)) ?>
+
+<form method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'syncstandings')) ?>">
+  <input type="hidden" name="id" value="<?php echo $this->group->id?>" />
+  <input type="submit" value="Herbereken stand" />
+</form>
 
 <br />
 <b>Wedstrijden</b>:

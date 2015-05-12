@@ -49,6 +49,7 @@ class GroupController extends \ultimo\mvc\Controller {
     }
     
     $group->syncStandings();
+    return $this->getPlugin('redirector')->redirect(array('action' => 'read', 'controller' => 'group', 'id' => $group->id));
   }
   
 }
