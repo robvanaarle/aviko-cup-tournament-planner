@@ -17,7 +17,11 @@
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
-      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'field', 'action' => 'index')) ?>">Velden</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'forms')) ?>">Wedstrijdbriefjes</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'current')) ?>">Actuele wedstrijden</a>
+      | <div style="display: inline">
+        <form method="get" style="display: inline" action="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'update')) ?>">#<input type="text" name="id" value="" /></form>
+      </div>
     <?php else: ?>
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Login</a>
     <?php endif ?>

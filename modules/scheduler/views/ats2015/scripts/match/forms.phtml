@@ -2,9 +2,10 @@
 
 <?php $formsPerPage = 4 ?>
 <div id="print-help">
+  Alle wedstrijden die nog moeten beginnen worden hier getoond.<br />
   Aantal pagina's: <?php echo ceil(count($this->matches)/$formsPerPage) ?><br />
   <input type="button" value="Print..." onclick="window.print()" /><br />
-  <b>Tip:</b>Schakel bij de print-instellingen het printen van de kop- en voettekst uit.
+  <b>Tip:</b> schakel bij print-instellingen het printen van de kop- en voettekst uit.
 </div>
 
 <div style="width: 100%;">
@@ -18,7 +19,7 @@
       <?php endif ?>
 
       <div class="match-form" style="width: 700px; height: 225px; border: 1px #000000 solid; position: relative;">
-        <div class="header" style="float: left; margin: 10px; clear: right">
+        <div class="header" style="width: 680px; float: left; margin: 10px; clear: right">
           <div style="float: left; width: 150px">
             <b>Datum:</b>
             <?php echo $this->locale()->getFormatter()->formatDate($match->starts_at, 'short', "Y-m-d H:i:s") ?>
@@ -30,6 +31,9 @@
           <div style="float: left; width: 100px">
             <b>Veld:</b>
             <?php echo $this->escape($match->field->name) ?>
+          </div>
+          <div style="float: right; text-align: right">
+            #<?php echo $this->escape($match->id) ?>
           </div>
         </div>
 

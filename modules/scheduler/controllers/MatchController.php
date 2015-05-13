@@ -50,11 +50,13 @@ class MatchController extends \ultimo\mvc\Controller {
     $this->view->matches = $this->manager->Match->future()->withTeamsAndField()->withGroupAndTournament()->all();
   }
   
+  public function actionCurrent() {
+    $this->view->matches = $this->manager->Match->current()->withTeamsAndField()->withGroupAndTournament()->all();
+  }
+  
   public function actionDashboard() {
-    $amount = 10;
-    $tournamentIndex = $this->request->getParam('index', 0);
-    $skip = $this->request->getParam('index', 0);
-    
-    $this->view->matches = $this->manager->Match->forDashboard()->all(true);
+    $result = $this->manager->selectAssoc('Match')->groupBy('@field_id')->fetch();
+    echo "<pre>" . print_r($result, true) . "</pre>"; exit();
+    //$this->view->matches = $this->manager->Match->withTeamsAndField()->withGroupAndTournament()->forDashboard()->all();
   }
 }

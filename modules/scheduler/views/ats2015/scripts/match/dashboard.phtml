@@ -1,21 +1,36 @@
 <style>
 body {
-  background: url("ats2015/scheduler/match/images/background_dashboard.jpg") no-repeat scroll center center #000000;
+  background2: url("ats2015/scheduler/match/images/background_dashboard.jpg") no-repeat scroll center center #000000;
   height: 100%;
   margin: 0;
   padding: 0;
   position: relative;
   width: 100%;
-  color: white;
+  color2: white;
 }
 </style>
 
 <div id="main" style="height: 934px; position: relative;width: 920px;">
+  <?php foreach ($this->matches as $match): ?>
+  <div class="item">
+    <div class="box">
+      <div class="header"><?php echo $this->escape($match->group->tournament->name)?></div>
+       <table cellpadding='2' cellspacing='0' width='860'>
+         <tr>
+           <td class='head' width='90'>Time</td>
+           <td class='head' width='70' style='text-align:center;'>Poule</td>
+           <td class='head' width='70' style='text-align:center;'>Field</td>
+           <td class='head' width='auto'>Match</td>
+           <td class='head' width='150' style='text-align:center;'>Score</td>
+         </tr>
+    </div>
+  </div>
+  <?php break; ?>
+  <?php endforeach ?>
   <pre>
   
     
     <?php 
-  print_r($this->matches);
   
   /*
 

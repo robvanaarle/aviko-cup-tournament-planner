@@ -14,7 +14,7 @@ class Tournament extends \ultimo\orm\Model {
   const FIELD_TYPE_WHOLE = 'whole';
   const FIELD_TYPE_HALF = 'half';
   
-  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'index', 'relatedFields');
+  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'index');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $relations = array(
@@ -39,8 +39,7 @@ class Tournament extends \ultimo\orm\Model {
     $staticModel->scope(function ($q) use ($model) {
       $q->with('@group')
         ->where('@group.tournament_id = ?', array($model->id))
-        ->order('starts_at', 'ASC')
-        ->order('id', 'ASC');
+        ->order('starts_at', 'ASC');
     });
     return $staticModel;
   }
@@ -84,11 +83,20 @@ class Tournament extends \ultimo\orm\Model {
     
     $startsAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->starts_at);
     $duration = new \DateInterval("PT" . ($this->match_duration + $this->between_duration) . "M");
-    $fields = $this->relatedFields()->all();
+    //$fields = $this->relatedFields()->all();
+    $fields = array();
+    foreach ($this->relatedFields()->all() as $field) {
+      $fields[$field->id] = $field;
+    }
+    
     
     
     $fieldIndex = 0;
+    $availableFields = $fields;
+    
     $teamsThisTimeslot = array();
+    $fieldCurrentMatches = array();
+    $fieldPrevMatches = array();
     $matchObjects = array();
     for ($roundIndex = 0; $roundIndex < $maxRounds; $roundIndex++) {
       
@@ -106,15 +114,55 @@ class Tournament extends \ultimo\orm\Model {
           
           // prevent two matches of the same team in one timeslot
           if (in_array($match['home']->id, $teamsThisTimeslot) || in_array($match['away']->id, $teamsThisTimeslot)) {
-            $fieldIndex = 0;
+            $availableFields = $fields;
             $teamsThisTimeslot = array();
+            $fieldPrevMatches = $fieldCurrentMatches;
+            $fieldCurrentMatches = array();
             $startsAt->add($duration);
           }
           
           $matchObject = $this->_manager->Match->create();
           $matchObject->home_team_id = $match['home']->id;
           $matchObject->away_team_id = $match['away']->id;
-          $matchObject->field_id = $fields[$fieldIndex]->id;
+          
+          // check if a team played previous round, and if so, use that field
+          $field = null;
+
+          foreach ($fieldPrevMatches as $fieldId => $prevMatch) {
+            if ($prevMatch->involvesTeamId($match['home']->id) || $prevMatch->involvesTeamId($match['away']->id)) {
+              $field = $fields[$prevMatch->field_id];
+              
+              //echo "field {$field->id}<br />";
+              
+              // check if that field is available this timeslot
+              if (isset($fieldCurrentMatches[$field->id])) {
+                // swap the field in use with the next available field
+                $vals = array_values($availableFields); $swapField = $vals[0];
+                unset($availableFields[$swapField->id]);
+                
+                $swapMatch = $fieldCurrentMatches[$field->id];
+                unset($fieldCurrentMatches[$field->id]);
+                
+                $swapMatch->field_id = $swapField->id;
+                $fieldCurrentMatches[$swapField->id] = $swapMatch;
+              } else {
+                unset($availableFields[$field->id]);
+              }
+              break;
+            }
+          }
+          
+          // if no previous field has been found, take next available
+          if ($field == null) {
+            $vals = array_values($availableFields); $field = $vals[0];
+            unset($availableFields[$field->id]);
+          }
+          
+          $matchObject->field_id = $field->id;
+          $teamFields['current'][$matchObject->home_team_id] = $matchObject->field_id;
+          $teamFields['current'][$matchObject->away_team_id] = $matchObject->field_id;
+          $fieldCurrentMatches[$field->id] = $matchObject;
+          
           $matchObject->starts_at = $startsAt->format("Y-m-d H:i:s");
           $matchObject->group_id = $groupId;
           $matchObject->referee = '';
@@ -125,14 +173,17 @@ class Tournament extends \ultimo\orm\Model {
           $teamsThisTimeslot[] = $match['home']->id;
           $teamsThisTimeslot[] = $match['away']->id;
           $fieldIndex++;
-          if ($fieldIndex >= count($fields)) {
-            $fieldIndex = 0;
+          if (count($availableFields) == 0) {
+            $availableFields = $fields;
             $teamsThisTimeslot = array();
+            $fieldPrevMatches = $fieldCurrentMatches;
+            $fieldCurrentMatches = array();
             $startsAt->add($duration);
           }
         }
       }
     }
+
     $this->_manager->Match->multiInsert($matchObjects);
   }
   

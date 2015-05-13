@@ -24,8 +24,42 @@ class Match extends \ultimo\orm\Model {
   );
   
   static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 
-      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'forDashboard', 'future');
+      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'forDashboard', 'future', 'current');
   
+  static protected $fetchers = array('groupedByStart', 'groupForDashboard');
+  
+  static public function groupForDashboard($s, $matchesPerGroup) {
+    $result = array();
+    foreach ($s->all(true) as $match) {
+      
+    }
+    
+    return $result;
+  }
+  
+  static public function groupedByStart($s) {
+    $result = array();
+    $prevMatch = null;
+    $group = array();
+    
+
+    $s->scope(function ($q) { $q->order('@starts_at', 'ASC'); });
+    
+    foreach ($s->all(true) as $match) {
+      if ($prevMatch !== null && $match->starts_at != $prevMatch->starts_at) {
+        $result[] = $group;
+        $group = array();
+      }
+      $group[] = $match;
+    }
+    
+    if (!empty($group)) {
+      $result[] = $group;
+    }
+    
+    return $result;
+  }
+
   static public function forGroup($group_id) {
     return function ($q) use ($group_id) {
       $q->where('group_id = ?', array($group_id))
@@ -92,7 +126,13 @@ class Match extends \ultimo\orm\Model {
         
     };
   }
-
+  
+  static public function current() {
+    return function ($q) {
+      $q->where('@starts_at >= ? AND @starts_at <= ?', array(date("Y-m-23 H:i:s", time()-30*60), date("Y-m-23 H:i:s", time()+30*60)))
+        ->order('@starts_at', 'ASC');
+    };
+  }
 
   public function homeWins() {
     return $this->goals_home > $this->goals_away;
@@ -104,6 +144,10 @@ class Match extends \ultimo\orm\Model {
     
   public function tie() {
     return $this->goals_away == $this->goals_home;
+  }
+  
+  public function involvesTeamId($teamId) {
+    return $this->home_team_id == $teamId || $this->away_team_id == $teamId;
   }
   
   static public function forDashboard() {

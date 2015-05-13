@@ -2,6 +2,10 @@
   
   <?php if ($this->action == 'update'): ?>
   <input type="hidden" name="id" value="<?php echo $this->match->id ?>" />
+  <dl>
+    <dt><label for="id">#</label></dt>
+    <dd><?php echo $this->match->id ?></dd>
+  </dl>
   <?php endif ?>
   
   <dl>
