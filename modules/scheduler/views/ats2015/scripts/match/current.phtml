@@ -1,3 +1,11 @@
-<h2>Actuele wedstrijden</h2>
+<?php $this->subtitle('Wedstrijden') ?>
+<?php $this->subtitle('Actueel') ?>
 
-<?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches)) ?>
+<h3>Actuele wedstrijden</h3>
+<div class="section">
+  <?php if (count($this->matches) > 0): ?>
+  <?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches)) ?>
+  <?php else: ?>
+  Geen wedstrijden tussen een half uur geleden en een half uur vanaf nu.
+  <?php endif ?>
+</div>

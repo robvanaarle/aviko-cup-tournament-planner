@@ -1,34 +1,37 @@
-<h2>
-  <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
-  &raquo; <a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id)) ?>"><?php echo $this->escape($this->tournament->name) ?></a>
-  &raquo; <?php echo $this->escape($this->group->name) ?>
-</h2>
-<b>Teams:</b>
-<table>
-  <tr>
-    <th>Naam</th>
-    <th></th>
-  </tr>
-  <?php foreach ($this->teams as $team): ?>
-  <tr>
-    <td><a href="<?php echo $this->url(array('controller' => 'team', 'action' => 'read', 'id' => $team->id)) ?>"><?php echo $this->escape($team->name) ?></a></td>
-    <td>
-      <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
-      <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
-    </td>
-  </tr>
-  <?php endforeach ?>
-</table>
+<?php $this->subtitle('Toernooien', $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index'))) ?>
+<?php $this->subtitle($this->tournament->name, $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id))) ?>
+<?php $this->subtitle($this->group->name) ?>
 
-<br />
-<b>Stand:</b>
-<?php echo $this->partial('standing/_table.phtml', array('standings' => $this->standings)) ?>
+<h3>Teams</h3>
+<div class="section">
+  <table>
+    <tr>
+      <th style="width: 400px">Naam</th>
+      <th></th>
+    </tr>
+    <?php foreach ($this->teams as $team): ?>
+    <tr>
+      <td><a href="<?php echo $this->url(array('controller' => 'team', 'action' => 'read', 'id' => $team->id)) ?>"><?php echo $this->escape($team->name) ?></a></td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
+        <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
+      </td>
+    </tr>
+    <?php endforeach ?>
+  </table>
+</div>
 
-<form method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'syncstandings')) ?>">
-  <input type="hidden" name="id" value="<?php echo $this->group->id?>" />
-  <input type="submit" value="Herbereken stand" />
-</form>
+<h3>Stand</h3>
+<div class="section">
+  <?php echo $this->partial('standing/_table.phtml', array('standings' => $this->standings)) ?>
+  <br />
+  <form method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'syncstandings')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->group->id?>" />
+    <input type="submit" value="Herbereken stand" />
+  </form>
+</div>
 
-<br />
-<b>Wedstrijden</b>:
-<?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches, 'hideTournaments' => true, 'hideGroups' => true, 'groupByStartsAt' => false)) ?>
+<h3>Wedstrijden</h3>
+<div class="section">
+  <?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches, 'hideTournaments' => true, 'hideGroups' => true, 'groupByStartsAt' => false)) ?>
+</div>

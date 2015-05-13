@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <base href="<?php echo $this->baseUrl()?>" />
+    <?php $this->headTitle('Aviko Tournament Scheduler') ?>
+    <?php echo $this->headMeta() ?>
+    <?php echo $this->headTitle()?>
+    <?php echo $this->headStyle()?>
+    
+    <?php $this->headLink()->prependStylesheet("ats2015/general/css/master.scss") ?>
+    <?php echo $this->headLink()?>
+  </head>
+  <body>
+    <div id="main-menu">
+    <a href="<?php echo $this->url(array(), 'general.frontpage.index') ?>">Home</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'dashboard')) ?>">Dashboard</a>
+    <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'forms')) ?>">Wedstrijdbriefjes</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'current')) ?>">Actuele wedstrijden</a>
+      | <div style="display: inline">
+        <form method="get" style="display: inline" action="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'update')) ?>">#<input type="text" name="id" value="" /></form>
+      </div>
+    <?php endif ?>
+      
+      
+      <div id="user-menu">
+        <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
+        <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
+        | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
+        <?php else: ?>
+          <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Login</a>
+        <?php endif ?>
+      </div>
+    </div>
+    
+    <div id="subtitle">
+      <?php echo $this->subtitle() ?>
+    </div>
+
+    <div id="content">
+    <?php echo $this->content ?>
+    </div>
+    
+    <?php $this->headScript()->prependJavascriptFile("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js") ?>
+    <?php echo $this->headScript()?>
+  </body>
+</html>  

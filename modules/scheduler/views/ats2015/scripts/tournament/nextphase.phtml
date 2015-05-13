@@ -1,30 +1,35 @@
-<h2>
-  <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
-  &raquo; <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id)) ?>"><?php echo $this->escape($this->tournament->name)?></a>
-  &raquo; volgende fase
-</h2>
+<?php $this->subtitle('Toernooien', $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index'))) ?>
+<?php $this->subtitle($this->tournament->name, $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id))) ?>
+<?php $this->subtitle('Volgende fase') ?>
 
-<h2>Beslissingen (strafschoppen?)</h2>
-<?php if (isset($this->decisions) && $this->decisions->count() > 0): ?>
-<?php echo nl2br($this->decisions) ?>
-<?php else: ?>
-geen
-<?php endif ?>
-<br /><br />
+<h3>Beslissingen</h3>
+<div class="section">
+  <?php if (isset($this->decisions) && $this->decisions->count() > 0): ?>
+  <?php echo nl2br($this->decisions) ?>
+  <?php else: ?>
+  geen
+  <?php endif ?>
+</div>
 
-<table>
-  <tr>
-    <td style="vertical-align: top">
+<h3>Standen</h3>
+<div class="section">
+  <div style="overflow: auto">
     <?php foreach ($this->groups as $group): ?>
-    <?php echo $this->partial('standing/_table.phtml', array('standings' => $group->standings, 'caption' => $group->name)) ?>
-    <br />
+    <div style="float: left; margin: 0 10px 10px 0">
+      <?php echo $this->partial('standing/_table.phtml', array('standings' => $group->standings, 'caption' => $group->name)) ?>
+    </div>
     <?php endforeach ?>
-    </td>
-    <td style="vertical-align: top">
-      <?php foreach ($this->newGroups as $index => $newGroup): ?>
-      <table border="1">
+  </div>
+</div>
+
+<h3>Nieuwe poules</h3>
+<div class="section">
+  <div style="overflow: auto">
+    <?php foreach ($this->newGroups as $index => $newGroup): ?>
+    <div style="float: left; margin: 0 10px 10px 0">
+      <table>
         <tr>
-          <th>Nieuwe group <?php echo $index+1 ?></th>
+          <th class="caption">Nieuwe group <?php echo $index+1 ?></th>
         </tr>
         <tr>
           <th>Team</th>
@@ -37,8 +42,7 @@ geen
         </tr>
         <?php endforeach ?>
       </table>
-      <br/>
-      <?php endforeach ?>
-    </td>
-  </tr>
-</table>
+    </div>
+    <?php endforeach ?>
+  </div>
+</div>

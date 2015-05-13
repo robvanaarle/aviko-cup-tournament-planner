@@ -1,13 +1,18 @@
-<h2>Wedstrijd briefjes</h2>
+<?php $this->subtitle('Wedstrijden') ?>
+<?php $this->subtitle('Briefjes') ?>
+
+<?php $this->headLink()->prependStylesheet("ats2015/scheduler/match/css/forms.css") ?>
 
 <?php $formsPerPage = 4 ?>
-<div id="print-help">
+<h3>Informatie</h3>
+<div class="section" id="print-help">
   Alle wedstrijden die nog moeten beginnen worden hier getoond.<br />
   Aantal pagina's: <?php echo ceil(count($this->matches)/$formsPerPage) ?><br />
-  <input type="button" value="Print..." onclick="window.print()" /><br />
-  <b>Tip:</b> schakel bij print-instellingen het printen van de kop- en voettekst uit.
+  <b>Tip:</b> schakel bij print-instellingen het printen van de kop- en voettekst uit.<br />
+  <input type="button" value="Print..." onclick="window.print()" />
 </div>
 
+<h3>Print voorbeeld</h3>
 <div style="width: 100%;">
   <div id="form-pages" style="position: relative; margin: 0 auto; overflow: auto">
     <?php foreach (array_chunk($this->matches, $formsPerPage) as $p => $matches): ?>
@@ -67,37 +72,3 @@
     <?php endforeach; ?>
   <div>
 </div>
-
-<style>
-  #form-pages {
-    background-color: #cccccc;
-    padding: 0 20px 10px 20px;
-    width: 780px;
-  }
-  
-  .form-page {
-    border: 1px #000000 solid;
-    background-color: #ffffff;
-    padding: 40px;
-    width: 702px;
-    margin: 20px 0 20px 0;
-  }
-  
-  @media print {
-    #form-pages, .form-page {
-      background-color: transparent;
-      padding: 0;
-      border: 0;
-      width: 702px;
-    }
-    
-    #main-menu, h2, #print-help {
-      display: none;
-    }
-    
-    body {
-      margin: 0;
-      padding: 0;
-    }
-  }
-</style>

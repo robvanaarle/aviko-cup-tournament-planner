@@ -1,5 +1,10 @@
-<h2><?php echo $this->escape($this->team->name)?></h2>
+<?php $this->subtitle('Teams') ?>
+<?php $this->subtitle($this->team->name) ?>
+
 <a href="<?php echo $this->url(array('action' => 'update', 'id' => $this->team->id)) ?>"><img src="ats2015/general/images/icons/16x16/edit.png" /> wijzig</a>
 <br /><br />
-<b>Wedstrijden</b>
-<?php echo $this->partial('match/_table.phtml', array('groupByStartsAt' => false, 'highlightTeamId' => $this->team->id)) ?>
+
+<h3>Wedstrijden</h3>
+<div class="section">
+  <?php echo $this->partial('match/_table.phtml', array('groupByStartsAt' => false, 'highlightTeamId' => $this->team->id)) ?>
+</div>

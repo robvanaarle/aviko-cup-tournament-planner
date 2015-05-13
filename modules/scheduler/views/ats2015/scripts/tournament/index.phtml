@@ -1,18 +1,22 @@
-<h2>Toernooien</h2>
-<table>
-  <tr>
-    <th>Naam</th>
-    <th colspan="2">Start</th>
-    <th></th>
-  </tr>
-  <?php foreach ($this->tournaments as $tournament): ?>
-  <tr>
-    <td><a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $tournament->id)) ?>"><?php echo $this->escape($tournament->name) ?></a></td>
-    <td><?php echo $this->locale()->getFormatter()->formatDateTime($tournament->starts_at, 'shortest') ?></td>
-    <td>
-      <a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'move', 'id' => $tournament->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
-      <a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'move', 'id' => $tournament->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
-    </td>
-  </tr>
-  <?php endforeach ?>
-</table>
+<?php $this->subtitle('Toernooien') ?>
+
+<h3>Alle toernooien</h3>
+<div class="section">
+  <table>
+    <tr>
+      <th style="width: 500px">Naam</th>
+      <th style="width: 300px">Start</th>
+      <th></th>
+    </tr>
+    <?php foreach ($this->tournaments as $tournament): ?>
+    <tr>
+      <td><a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $tournament->id)) ?>"><?php echo $this->escape($tournament->name) ?></a></td>
+      <td><?php echo $this->locale()->getFormatter()->formatDateTime($tournament->starts_at, 'shortest') ?></td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'move', 'id' => $tournament->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
+        <a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'move', 'id' => $tournament->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
+      </td>
+    </tr>
+    <?php endforeach ?>
+  </table>
+</div>

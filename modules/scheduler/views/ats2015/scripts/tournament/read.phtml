@@ -1,22 +1,23 @@
-<h2>
-  <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
-  &raquo; <?php echo $this->escape($this->tournament->name)?>
-</h2>
+<?php $this->subtitle('Toernooien', $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index'))) ?>
+<?php $this->subtitle($this->tournament->name) ?>
 
-<b>Velden</b>: <?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?><br />
-<b>Datum</b>: <?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?><br />
-<b>Wedstrijd duur</b>: <?php echo $this->tournament->match_duration ?> mins<br />
-<b>Tussen duur</b>: <?php echo $this->tournament->between_duration ?> mins<br />
-<form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'nextphase')) ?>">
-  <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
-  <input type="submit" value="Volgende fase" />
-</form>
+<h3>Eigenschappen</h3>
+<div class="section">
+  <b>Velden</b>: <?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?><br />
+  <b>Datum</b>: <?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?><br />
+  <b>Wedstrijd duur</b>: <?php echo $this->tournament->match_duration ?> mins<br />
+  <b>Tussen duur</b>: <?php echo $this->tournament->between_duration ?> mins<br />
+  <form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'nextphase')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
+    <input type="submit" value="Volgende fase" />
+  </form>
+</div>
 
-<br />
-<b>Poules:</b>
+<h3>Poules</h3>
+<div class="section">
 <table>
   <tr>
-    <th>Naam</th>
+    <th style="width: 400px">Naam</th>
     <th></th>
   </tr>
   <?php foreach ($this->groups as $group): ?>
@@ -29,12 +30,14 @@
   </tr>
   <?php endforeach ?>
 </table>
+</div>
 
-<br />
-<b>Wedstrijden</b>:
-<?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches, 'hideTournaments' => true, 'showEdits' => true )) ?>
-  
-<form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'generateschedule')) ?>">
-  <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
-  <input type="submit" value="(Her)genereer wedstrijden" />
-</form>
+<h3>Wedstrijden</h3>
+<div class="section">
+  <?php echo $this->partial('match/_table.phtml', array('matches' => $this->matches, 'hideTournaments' => true, 'showEdits' => true )) ?>
+  <br />
+  <form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'generateschedule')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
+    <input type="submit" value="(Her)genereer wedstrijden" />
+  </form>
+</div>
