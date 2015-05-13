@@ -79,21 +79,21 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     }
     
     $module->getView()->addDecoratorClass('HeadLink', 'ultimo\phptpl\helpers\decorators\HeadLinkFileCache', array('fileMTimeCache' => $fileMTimeCache));
-    $module->getView()->addDecoratorClass('HeadLink', 'ultimo\phptpl\helpers\decorators\scssphp\Scssphp', array(
+    /*$module->getView()->addDecoratorClass('HeadLink', 'ultimo\phptpl\helpers\decorators\scssphp\Scssphp', array(
       'scssphpPath' => 'library/php/scssphp/scss.inc.php',
       'compiledPath' => 'assets/compiled/css',
       'fileMTimeCache' => $fileMTimeCache,
       'extensions' => array('scss', 'css'),
       'formatter' => $env == 'development' ? null : 'scss_formatter_compressed'
-    ));
+    ));*/
     $module->getView()->addDecoratorClass('HeadLink', 'ultimo\phptpl\mvc\helpers\decorators\HeadLinkTheme');
     
-    $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\HeadScriptFileCache', array('fileMTimeCache' => $fileMTimeCache));
+    /*$module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\HeadScriptFileCache', array('fileMTimeCache' => $fileMTimeCache));
     $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\mrclay\JSMin', array(
       'compiledPath' => 'assets/compiled/js',
       'fileMTimeCache' => $fileMTimeCache,
       'minifierType' => $env == 'development' ? 'none' : 'jsmin'
-    ));
+    ));*/
     $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\mvc\helpers\decorators\HeadScriptTheme');
   }
   

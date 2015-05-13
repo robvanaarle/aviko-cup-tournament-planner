@@ -55,8 +55,6 @@ class MatchController extends \ultimo\mvc\Controller {
   }
   
   public function actionDashboard() {
-    $result = $this->manager->selectAssoc('Match')->groupBy('@field_id')->fetch();
-    echo "<pre>" . print_r($result, true) . "</pre>"; exit();
-    //$this->view->matches = $this->manager->Match->withTeamsAndField()->withGroupAndTournament()->forDashboard()->all();
+    $this->view->tournaments = $this->manager->Tournament->forDashboard()->all();
   }
 }

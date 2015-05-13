@@ -22,7 +22,7 @@ class Group extends \ultimo\orm\Model {
   static protected $plugins = array('Sequence');
   static public $_sequenceGroupFields = array('tournament_id');
   
-  static protected $scopes = array('forTournament', 'withTournament', 'withTeams', 'withFullStandings');
+  static protected $scopes = array('forTournament', 'withTournament', 'withTeams', 'withFullStandings', 'forDashboard');
   
   static protected $fetchers = array('getWithGroupsAsKey');
   
@@ -59,6 +59,22 @@ class Group extends \ultimo\orm\Model {
       $q->with('@standings')
         ->with('@standings.team')
         ->order('@standings.index', 'ASC');
+    };
+  }
+  
+  static public function forDashboard() {
+    return function ($q) {
+      $q->with('@matches')
+        ->with('@matches.home_team')
+        ->with('@matches.away_team')
+        ->with('@matches.field')
+        ->with('@matches.field.tournament_fields')
+        ->with('@tournament')
+        ->where('@matches.field.tournament_fields.tournament_id = @tournament.id')
+        ->order('@tournament.index', 'ASC')
+        ->order('@index', 'ASC')
+        ->order('@matches.starts_at', 'ASC')
+        ->order('@matches.field.tournament_fields.index', 'ASC');
     };
   }
   

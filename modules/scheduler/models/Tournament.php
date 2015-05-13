@@ -24,12 +24,18 @@ class Tournament extends \ultimo\orm\Model {
   
   static protected $plugins = array('Sequence');
   
-  static protected $scopes = array('byGroup');
+  static protected $scopes = array('byGroup', 'forDashboard');
   
   static public function byGroup($group_id) {
     return function ($q) use ($group_id) {
       $q->with('@groups')
         ->where('@groups.id = ?', array($group_id));
+    };
+  }
+  
+  static public function forDashboard() {
+    return function ($q) {
+      $q->order('@index');
     };
   }
   

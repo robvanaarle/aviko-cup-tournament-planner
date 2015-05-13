@@ -28,6 +28,8 @@
     </div>
 
     <?php echo $this->content ?>
+    
+    <?php $this->headScript()->prependJavascriptFile("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js") ?>
     <?php echo $this->headScript()?>
   </body>
 </html>  
