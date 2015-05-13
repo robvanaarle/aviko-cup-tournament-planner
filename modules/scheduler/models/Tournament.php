@@ -14,11 +14,12 @@ class Tournament extends \ultimo\orm\Model {
   const FIELD_TYPE_WHOLE = 'whole';
   const FIELD_TYPE_HALF = 'half';
   
-  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'index');
+  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'index', 'relatedFields');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $relations = array(
-    'groups' => array('Group', array('id' => 'tournament_id'), self::ONE_TO_MANY)
+    'groups' => array('Group', array('id' => 'tournament_id'), self::ONE_TO_MANY),
+    'tournament_fields' => array('TournamentField', array('id' => 'tournament_id'), self::ONE_TO_MANY)
   );
   
   static protected $plugins = array('Sequence');
@@ -40,6 +41,17 @@ class Tournament extends \ultimo\orm\Model {
         ->where('@group.tournament_id = ?', array($model->id))
         ->order('starts_at', 'ASC')
         ->order('id', 'ASC');
+    });
+    return $staticModel;
+  }
+  
+  public function relatedFields() {
+    $model = $this;
+    $staticModel = $this->_manager->getStaticModel('Field');
+    $staticModel->scope(function ($q) use ($model) {
+      $q->with('@tournament_fields')
+        ->where('@tournament_fields.tournament_id = ?', array($model->id))
+        ->order('@tournament_fields.index', 'ASC');
     });
     return $staticModel;
   }
@@ -72,7 +84,7 @@ class Tournament extends \ultimo\orm\Model {
     
     $startsAt = \DateTime::createFromFormat('Y-m-d H:i:s', $this->starts_at);
     $duration = new \DateInterval("PT" . ($this->match_duration + $this->between_duration) . "M");
-    $fields = $this->_manager->Field->withFieldType($this->field_type)->all();
+    $fields = $this->relatedFields()->all();
     
     
     $fieldIndex = 0;

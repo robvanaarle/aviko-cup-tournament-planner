@@ -3,7 +3,7 @@
   &raquo; <?php echo $this->escape($this->tournament->name)?>
 </h2>
 
-<b>Veld type</b>: <?php echo $this->escape($this->tournament->field_type) ?><br />
+<b>Velden</b>: <?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?><br />
 <b>Datum</b>: <?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?><br />
 <b>Wedstrijd duur</b>: <?php echo $this->tournament->match_duration ?> mins<br />
 <b>Tussen duur</b>: <?php echo $this->tournament->between_duration ?> mins<br />

@@ -15,6 +15,7 @@ class Field extends \ultimo\orm\Model {
   static protected $autoIncrementField = 'id';
   static protected $relations = array(
     'matches' => array('Match', array('id' => 'field_id', self::ONE_TO_MANY)),
+    'tournament_fields' => array('TournamentField', array('id' => 'field_id'), self::ONE_TO_MANY)
   );
   
   static protected $scopes = array('withFieldType');

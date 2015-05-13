@@ -26,6 +26,7 @@ class TournamentController extends \ultimo\mvc\Controller {
 
     $this->view->groups = $tournament->related('groups')->orderByIndex()->all();
     $this->view->matches = $tournament->matches()->withTeamsAndField()->all();
+    $this->view->fields = $tournament->relatedFields()->all();
     $this->view->tournament = $tournament;
   }
   
