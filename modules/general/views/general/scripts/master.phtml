@@ -12,7 +12,7 @@
   <body>
     <div id="main-menu" style="margin-bottom: 30px">
     <a href="<?php echo $this->url(array(), 'general.frontpage.index') ?>">Home</a>
-    
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'dashboard')) ?>">Dashboard</a>
     <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
@@ -25,6 +25,7 @@
     <?php else: ?>
       | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Login</a>
     <?php endif ?>
+      
     </div>
 
     <?php echo $this->content ?>
