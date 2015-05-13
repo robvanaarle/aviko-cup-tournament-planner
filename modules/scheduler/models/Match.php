@@ -23,7 +23,8 @@ class Match extends \ultimo\orm\Model {
     'field' => array('Field', array('field_id' => 'id'), self::MANY_TO_ONE)
   );
   
-  static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 'withGroup', 'forTeam', 'withGroupAndTournament', 'played');
+  static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 
+      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'forDashboard', 'future');
   
   static public function forGroup($group_id) {
     return function ($q) use ($group_id) {
@@ -79,10 +80,20 @@ class Match extends \ultimo\orm\Model {
     return function ($q) {
       $q->with('@home_team')
         ->with('@away_team')
-        ->with('@field');
+        ->with('@field')
+        ->order('@field.index', 'ASC');
     };
   }
   
+  static public function future() {
+    return function ($q) {
+      $q->where('@starts_at >= ?', array(date("Y-m-d 00:00:00")))
+        ->order('@starts_at', 'ASC');
+        
+    };
+  }
+
+
   public function homeWins() {
     return $this->goals_home > $this->goals_away;
   }
@@ -93,5 +104,19 @@ class Match extends \ultimo\orm\Model {
     
   public function tie() {
     return $this->goals_away == $this->goals_home;
+  }
+  
+  static public function forDashboard() {
+    return function ($q) {
+      $q->with('@group')
+        ->with('@group.tournament')
+        ->with('@away_team')
+        ->with('@home_team')
+        ->with('@field')
+        ->groupBy('@starts_at')
+        ->order('@group.tournament.index')
+        ->order('@group.index')
+        ->order('@field.index');
+    };
   }
 }

@@ -45,4 +45,16 @@ class MatchController extends \ultimo\mvc\Controller {
     $this->view->form = $form;
     $this->view->match = $match;
   }
+  
+  public function actionForms() {
+    $this->view->matches = $this->manager->Match->future()->withTeamsAndField()->withGroupAndTournament()->all();
+  }
+  
+  public function actionDashboard() {
+    $amount = 10;
+    $tournamentIndex = $this->request->getParam('index', 0);
+    $skip = $this->request->getParam('index', 0);
+    
+    $this->view->matches = $this->manager->Match->forDashboard()->all(true);
+  }
 }

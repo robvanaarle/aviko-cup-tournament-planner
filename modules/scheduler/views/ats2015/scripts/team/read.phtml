@@ -13,6 +13,7 @@
     <th>Uit</th>
     <th colspan="3">Uitslag</th>
   </tr>
+
   <?php foreach ($this->matches as $match): ?>
   <tr>
     <td style="text-align: right"><?php echo $this->locale()->getFormatter()->formatTime($match->starts_at, 'short', "Y-m-d H:i:s") ?></td>
