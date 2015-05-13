@@ -38,7 +38,7 @@ $(document).ready(function() {
               <td valign='top' style='text-align:center;'><?php echo $this->escape($match->group->name) ?></td>
               <td valign='top' style='text-align:center;'><?php echo $this->escape($match->field->name) ?></td>
               <td valign='top'><?php echo $this->escape($match->home_team->name)?> - <?php echo $this->escape($match->away_team->name)?></td>
-              <td valign='top' style='text-align:center;'><?php echo $match['goals_away'] ?> - <?php echo $match['goals_home'] ?></td>
+              <td valign='top' style='text-align:center;'><?php echo $match['goals_home'] ?> - <?php echo $match['goals_away'] ?></td>
           </tr>
          <?php $prevMatch = $match ?>
          <?php endforeach ?>
