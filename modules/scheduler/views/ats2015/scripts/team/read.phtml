@@ -1,8 +1,20 @@
 <?php $this->subtitle('Teams') ?>
 <?php $this->subtitle($this->team->name) ?>
 
-<a href="<?php echo $this->url(array('action' => 'update', 'id' => $this->team->id)) ?>"><img src="ats2015/general/images/icons/16x16/edit.png" /> wijzig</a>
-<br /><br />
+<h3>Eigenschappen</h3>
+<div class="section">
+  <table class="properties">
+    <tr>
+      <td class="name">Naam</td>
+      <td class="value"><?php echo $this->escape($this->team->name)?></td>
+    </tr>
+  </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('action' => 'update')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->team->id?>" />
+    <button type="submit">Wijzig <img src="ats2015/general/images/icons/16x16/edit.png" style="vertical-align: middle" /></button>
+  </form>
+</div>
 
 <h3>Wedstrijden</h3>
 <div class="section">

@@ -19,16 +19,22 @@ class MatchController extends \ultimo\mvc\Controller {
     if ($match === null) {
       throw new \ultimo\mvc\exceptions\DispatchException("Match with id '{$id}' does not exist.", 404);
     }
+
     
     $form = $this->module->getPlugin('formBroker')->createForm(
       'match\UpdateForm',
-      $this->request->getParam('form', array())
+      $this->request->getParam('form', array()),
+      array(
+        'availableFields' => $match->fields()->fetchIdNameHash()
+      )
     );
      
     if ($this->request->isPost()) {
       if ($form->validate()) {
-        $match->goals_home = empty($form['goals_home']) ? null : $form['goals_home'];
-        $match->goals_away = empty($form['goals_away']) ? null : $form['goals_away'];
+        $match->goals_home = ($form['goals_home'] == '') ? null : $form['goals_home'];
+        $match->goals_away = ($form['goals_away'] == '') ? null : $form['goals_away'];
+        $match->field_id = $form['field_id'];
+        $match->starts_at = $form['starts_at'];
         $match->save();
         
         $group = $this->manager->Group->get($match->group_id);
@@ -36,7 +42,11 @@ class MatchController extends \ultimo\mvc\Controller {
         
         $tournament = $this->manager->Tournament->byGroup($match->group_id)->first();
         
-        return $this->getPlugin('redirector')->redirect(array('controller' => 'tournament', 'action' => 'read', 'id' => $tournament->id));
+        if (isset($form['returnUrl'])) {
+          return $this->getPlugin('redirector')->setRedirectUrl($form['returnUrl']);
+        } else {
+          return $this->getPlugin('redirector')->redirect(array('controller' => 'tournament', 'action' => 'read', 'id' => $tournament->id));
+        }
       }
     } else {
       $form->fromArray($match->toArray());

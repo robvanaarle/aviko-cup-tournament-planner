@@ -3,13 +3,41 @@
 
 <h3>Eigenschappen</h3>
 <div class="section">
-  <b>Velden</b>: <?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?><br />
-  <b>Datum</b>: <?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?><br />
-  <b>Wedstrijd duur</b>: <?php echo $this->tournament->match_duration ?> mins<br />
-  <b>Tussen duur</b>: <?php echo $this->tournament->between_duration ?> mins<br />
-  <form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'nextphase')) ?>">
+  <table class="properties">
+    <tr>
+      <td class="name">Naam</td>
+      <td class="value"><?php echo $this->escape($this->tournament->name)?></td>
+    </tr>
+    <tr>
+      <td class="name">Start</td>
+      <td class="value"><?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?></td>
+    </tr>
+    <tr>
+      <td class="name">Velden</td>
+      <td class="value"><?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?></td>
+    </tr>
+    <tr>
+      <td class="name">Wedstrijdduur</td>
+      <td class="value"><?php echo $this->tournament->match_duration ?> mins</td>
+    </tr>
+    <tr>
+      <td class="name">Tussenduur</td>
+      <td class="value"><?php echo $this->tournament->between_duration ?> mins</td>
+    </tr>
+    <tr>
+      <td class="name">Toon op dashboard</td>
+      <td class="value"><?php if ($this->tournament->show_in_dashboard): ?>ja<?php else: ?>nee<?php endif ?></td>
+    </tr>
+  </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('action' => 'update')) ?>">
     <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
-    <input type="submit" value="Volgende fase" />
+    <button type="submit">Wijzig <img src="ats2015/general/images/icons/16x16/edit.png" style="vertical-align: middle" /></button>
+  </form>
+  
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'nextphase')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
+    <button type="submit">Volgende fase</button>
   </form>
 </div>
 
@@ -38,6 +66,6 @@
   <br />
   <form method="get" action="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'generateschedule')) ?>">
     <input type="hidden" name="id" value="<?php echo $this->tournament->id?>" />
-    <input type="submit" value="(Her)genereer wedstrijden" />
+    <button type="submit">(Her)genereer wedstrijden</button>
   </form>
 </div>

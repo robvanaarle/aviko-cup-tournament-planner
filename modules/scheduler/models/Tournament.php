@@ -52,6 +52,17 @@ class Tournament extends \ultimo\orm\Model {
     return $staticModel;
   }
   
+  public function fields() {
+    $model = $this;
+    $staticModel = $this->_manager->getStaticModel('Field');
+    $staticModel->scope(function ($q) use ($model) {
+      $q->with('@tournament_fields')
+        ->where('@tournament_fields.tournament_id = ?', array($model->id))
+        ->order('@tournament_fields.index', 'ASC');
+    });
+    return $staticModel;
+  }
+  
   public function relatedFields() {
     $model = $this;
     $staticModel = $this->_manager->getStaticModel('Field');

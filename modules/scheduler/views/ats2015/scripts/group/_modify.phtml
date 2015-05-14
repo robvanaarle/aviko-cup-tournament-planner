@@ -1,0 +1,20 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <?php if ($this->action == 'update'): ?>
+  <input type="hidden" name="id" value="<?php echo $this->group->id ?>" />
+  <?php endif ?>
+
+  <dl>
+    <dt><label for="name">Naam</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'name')?>
+      <input type="text" name="form[name]" id="name" value="<?php echo $this->escape($this->form['name'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dd>
+      <button type="submit">Opslaan</button>
+    </dd>
+  </dl>
+</form>

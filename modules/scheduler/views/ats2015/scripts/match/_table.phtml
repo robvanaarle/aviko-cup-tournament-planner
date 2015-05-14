@@ -2,6 +2,7 @@
 if (!isset($this->hideGroups)) { $this->hideGroups = false; }
 if (!isset($this->hideTournaments)) { $this->hideTournaments = false; }
 if (!isset($this->showEdits)) { $this->showEdits = false; }
+$this->showEdits = true;
 if (!isset($this->groupByStartsAt)) { $this->groupByStartsAt = true; }
 if (!isset($this->highlightTeamId)) { $this->highlightTeamId = -1; }
 
@@ -47,7 +48,7 @@ if (!isset($this->highlightTeamId)) { $this->highlightTeamId = -1; }
     <td>-</td>
     <td><?php echo $match->goals_away ?></td>
     <?php if ($this->showEdits): ?>
-    <td><a href="<?php echo $this->url(array('controller' => 'match', 'action' => 'update', 'id' => $match->id)) ?>"><img src="ats2015/general/images/icons/16x16/edit.png" /></a></td>
+    <td><a href="<?php echo $this->url(array('controller' => 'match', 'action' => 'update', 'id' => $match->id, 'form[returnUrl]' => $this->url(array(), null, false))) ?>"><img src="ats2015/general/images/icons/16x16/edit.png" /></a></td>
     <?php endif ?>
   </tr>
   <?php $prevMatch = $match ?>

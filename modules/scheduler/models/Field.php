@@ -27,5 +27,15 @@ class Field extends \ultimo\orm\Model {
     };
   }
   
+  static protected $fetchers = array('fetchIdNameHash');
+  
+  static public function fetchIdNameHash($s) {
+    $result = array();
+    foreach ($s->all() as $field) {
+      $result[$field->id] = $field->name;
+    }
+    return $result;
+  }
+  
   static protected $plugins = array('Sequence');
 }

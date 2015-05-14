@@ -1,0 +1,25 @@
+<?php $this->subtitle("Gebruikers") ?>
+<?php $this->subtitle("Inloggen") ?>
+
+<h3>Inloggen</h3>
+<div class="section">
+  <form method="post" action="">
+  <input type="hidden" name="form[returnUrl]" value="<?php echo $this->form['returnUrl']?>" />
+    <dl>
+      <dt><label for="username">Gebruikersnaam</label></dt>
+      <dd><input type="text" name="form[username]" id="username" /></dd>
+    </dl>
+
+    <dl>
+      <dt><label for="password">Wachtwoord</label></dt>
+      <dd><input type="password" name="form[password]" id="password" /></dd>
+    </dl>
+
+    <dl>
+      <dd>
+        <input type="submit" name="Login" value="Login" />
+      </dd>
+    </dl>
+
+  </form>
+</div>

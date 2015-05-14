@@ -1,6 +1,6 @@
 <?php
 
-namespace  modules\scheduler\forms\team;
+namespace modules\scheduler\forms\team;
 
 class ModifyForm extends \ultimo\form\Form {
   

@@ -2,4 +2,6 @@
 <?php $this->subtitle($this->team->name, $this->url(array('action' => 'read', 'id' => $this->team->id))) ?>
 <?php $this->subtitle('wijzig') ?>
 
-<?php echo $this->partial('team/_modify.phtml', array('action' => 'update')) ?>
+<div class="section">
+  <?php echo $this->partial('team/_modify.phtml', array('action' => 'update')) ?>
+</div>

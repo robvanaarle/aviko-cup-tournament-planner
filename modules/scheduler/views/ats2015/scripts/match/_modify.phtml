@@ -8,14 +8,28 @@
   </dl>
   <?php endif ?>
   
+  <?php if (isset($this->form['returnUrl'])): ?>
+  <input type="hidden" name="form[returnUrl]" value="<?php echo $this->escape($this->form['returnUrl']) ?>" />
+  <?php endif ?>
+  
   <dl>
-    <dt><label for="starts_at">Datum/tijd</label></dt>
-    <dd><?php echo $this->locale()->getFormatter()->formatDateTime($this->match->starts_at, 'short') ?></dd>
+    <dt><label for="starts_at">Start</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'starts_at')?>
+      <?php echo $this->widget('keithwood:datetimeentry', array('name' => 'form[starts_at]', 'value' => \DateTime::createFromFormat('Y-m-d H:i:s', $this->form['starts_at']), 'config' => array('phpDatetimeFormat' => 'Y-m-d H:i:s'))) ?>
+    </dd>
   </dl>
   
   <dl>
-    <dt><label for="field">Veld</label></dt>
-    <dd><?php echo $this->escape($this->match->field->name)?></dd>
+    <dt><label for="field_id">Veld</label></dt>
+    <dd>
+      <?php echo $this->widget('Select', array(
+        'id' => 'field_id',
+        'name' => 'form[field_id]',
+        'value' => $this->form['field_id'],
+        'options' => $this->form->getConfig('availableFields')
+      )) ?>
+    </dd>
   </dl>
   
   <dl>
@@ -43,7 +57,7 @@
   
   <dl>
     <dd>
-      <input type="submit" value="<?php echo $this->action?>" />
+      <button type="submit">Opslaan</button>
     </dd>
   </dl>
 </form>

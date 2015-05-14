@@ -88,12 +88,12 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     ));
     $module->getView()->addDecoratorClass('HeadLink', 'ultimo\phptpl\mvc\helpers\decorators\HeadLinkTheme');
     
-    /*$module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\HeadScriptFileCache', array('fileMTimeCache' => $fileMTimeCache));
+    $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\HeadScriptFileCache', array('fileMTimeCache' => $fileMTimeCache));
     $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\helpers\decorators\mrclay\JSMin', array(
       'compiledPath' => 'assets/compiled/js',
       'fileMTimeCache' => $fileMTimeCache,
       'minifierType' => $env == 'development' ? 'none' : 'jsmin'
-    ));*/
+    ));
     $module->getView()->addDecoratorClass('HeadScript', 'ultimo\phptpl\mvc\helpers\decorators\HeadScriptTheme');
   }
   

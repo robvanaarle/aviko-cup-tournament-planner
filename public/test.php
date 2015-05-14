@@ -1,5 +1,8 @@
 <?php
 
+var_dump( preg_match("/^-?[0-9]+$/", "12"));
+
+exit();
 interface Standing {
   public function compareTo(Standing $standing);
   public function equals(Standing $standing);

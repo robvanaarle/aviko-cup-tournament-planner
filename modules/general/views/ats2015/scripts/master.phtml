@@ -20,7 +20,7 @@
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'forms')) ?>">Wedstrijdbriefjes</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'current')) ?>">Actuele wedstrijden</a>
       | <div style="display: inline">
-        <form method="get" style="display: inline" action="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'update')) ?>">#<input type="text" name="id" value="" /></form>
+        <form method="get" style="display: inline" action="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'update')) ?>">#<input type="text" style="width: 60px" name="id" value="" /></form>
       </div>
     <?php endif ?>
       
@@ -45,7 +45,7 @@
       </div>
     </div>
     
-    <?php $this->headScript()->prependJavascriptFile("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js") ?>
+    <?php $this->mediaLibrary()->prependJavascriptFile('jquery', 'jquery.min.js') ?>
     <?php echo $this->headScript()?>
   </body>
 </html>  

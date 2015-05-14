@@ -1,0 +1,56 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <?php if ($this->action == 'update'): ?>
+  <input type="hidden" name="id" value="<?php echo $this->tournament->id ?>" />
+  <?php endif ?>
+
+  <dl>
+    <dt><label for="name">Naam</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'name')?>
+      <input type="text" name="form[name]" id="name" value="<?php echo $this->escape($this->form['name'])?>" />
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="starts_at">Start</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'starts_at')?>
+      <?php echo $this->widget('keithwood:datetimeentry', array('name' => 'form[starts_at]', 'value' => \DateTime::createFromFormat('Y-m-d H:i:s', $this->form['starts_at']), 'config' => array('phpDatetimeFormat' => 'Y-m-d H:i:s'))) ?>
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="match_duration">Wedstrijdduur</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'match_duration')?>
+      <input type="text" name="form[match_duration]" id="match_duration" value="<?php echo $this->escape($this->form['match_duration'])?>" /> mins
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="between_duration">Tussenduur</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'between_duration')?>
+      <input type="text" name="form[between_duration]" id="between_duration" value="<?php echo $this->escape($this->form['between_duration'])?>" /> mins
+    </dd>
+  </dl>
+  
+  <dl>
+    <dt><label for="show_in_dashboard">Toon op dashboard</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'show_in_dashboard')?>
+      <?php echo $this->widget('Checkbox', array(
+        'id' => 'show_in_dashboard',
+        'name' => 'form[show_in_dashboard]',
+        'value' => $this->form['show_in_dashboard']
+      )) ?>
+    </dd>
+  </dl>
+  
+  <dl>
+    <dd>
+      <button type="submit">Opslaan</button>
+    </dd>
+  </dl>
+</form>

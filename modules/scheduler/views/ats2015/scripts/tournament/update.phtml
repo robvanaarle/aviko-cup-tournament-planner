@@ -1,0 +1,7 @@
+<?php $this->subtitle('Toernooien') ?>
+<?php $this->subtitle($this->tournament->name, $this->url(array('action' => 'read', 'id' => $this->tournament->id))) ?>
+<?php $this->subtitle('wijzig') ?>
+
+<div class="section">
+  <?php echo $this->partial('tournament/_modify.phtml', array('action' => 'update')) ?>
+</div>

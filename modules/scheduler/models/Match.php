@@ -26,16 +26,7 @@ class Match extends \ultimo\orm\Model {
   static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 
       'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'forDashboard', 'future', 'current');
   
-  static protected $fetchers = array('groupedByStart', 'groupForDashboard');
-  
-  static public function groupForDashboard($s, $matchesPerGroup) {
-    $result = array();
-    foreach ($s->all(true) as $match) {
-      
-    }
-    
-    return $result;
-  }
+  static protected $fetchers = array('groupedByStart');
   
   static public function groupedByStart($s) {
     $result = array();
@@ -132,6 +123,12 @@ class Match extends \ultimo\orm\Model {
       $q->where('@starts_at >= ? AND @starts_at <= ?', array(date("Y-m-23 H:i:s", time()-30*60), date("Y-m-23 H:i:s", time()+30*60)))
         ->order('@starts_at', 'ASC');
     };
+  }
+  
+  public function fields() {
+    $group = $this->related('group')->first();
+    $tournament = $group->related('tournament')->first();
+    return $tournament->fields();
   }
 
   public function homeWins() {
