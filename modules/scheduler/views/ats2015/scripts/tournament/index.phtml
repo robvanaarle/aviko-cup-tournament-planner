@@ -20,3 +20,10 @@
     <?php endforeach ?>
   </table>
 </div>
+
+<h3>Wedstrijden</h3>
+<div class="section">
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'match', 'action' => 'export')) ?>">
+    <button type="submit">Export <img src="ats2015/general/images/icons/16x16/excel.gif" style="vertical-align: middle" /></button>
+  </form>
+</div>

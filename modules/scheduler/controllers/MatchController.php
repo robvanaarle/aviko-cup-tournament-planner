@@ -67,4 +67,40 @@ class MatchController extends \ultimo\mvc\Controller {
   public function actionDashboard() {
     $this->view->tournaments = $this->manager->Tournament->forDashboard()->all();
   }
+  
+  public function actionExport() {
+    $tournaments = $this->manager->Tournament->forExport()->all();
+    
+    $delim = ';';
+    header( 'Content-Type: text/csv' );
+    header( 'Content-Disposition: attachment;filename=wedstrijden_'.date('Ymd_His').'.csv');
+    
+    $out = fopen('php://output', 'w');
+    
+    fputcsv($out, array('start', 'veld', 'toernooi', 'poule', 'thuis', 'uit', 'goals thuis', '', 'goals uit', '#'), $delim);
+
+    foreach ($tournaments as $tournament) {
+      $tournamentMatches = $tournament->matches()->withTeamsAndField()->all();
+      foreach ($tournamentMatches as $match) {
+        fputcsv($out, array(
+            $match->starts_at,
+            $match->field->name,
+            $tournament->name,
+            $match->group->name,
+            $match->home_team->name,
+            $match->away_team->name,
+            $match->goals_home,
+            '-',
+            $match->goals_away,
+            $match->id
+        ), $delim);
+        
+        fflush($out);
+      }
+    }
+    
+    fclose($out);
+    
+    $this->getPlugin('viewRenderer')->setDisabled(true);
+  }
 }

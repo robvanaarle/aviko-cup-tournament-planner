@@ -24,7 +24,7 @@ class Match extends \ultimo\orm\Model {
   );
   
   static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 
-      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'forDashboard', 'future', 'current');
+      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'future', 'current');
   
   static protected $fetchers = array('groupedByStart');
   
@@ -147,17 +147,4 @@ class Match extends \ultimo\orm\Model {
     return $this->home_team_id == $teamId || $this->away_team_id == $teamId;
   }
   
-  static public function forDashboard() {
-    return function ($q) {
-      $q->with('@group')
-        ->with('@group.tournament')
-        ->with('@away_team')
-        ->with('@home_team')
-        ->with('@field')
-        ->groupBy('@starts_at')
-        ->order('@group.tournament.index')
-        ->order('@group.index')
-        ->order('@field.index');
-    };
-  }
 }

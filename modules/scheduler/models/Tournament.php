@@ -25,7 +25,7 @@ class Tournament extends \ultimo\orm\Model {
   
   static protected $plugins = array('Sequence');
   
-  static protected $scopes = array('byGroup', 'forDashboard');
+  static protected $scopes = array('byGroup', 'forDashboard', 'forExport');
   
   static public function byGroup($group_id) {
     return function ($q) use ($group_id) {
@@ -38,6 +38,12 @@ class Tournament extends \ultimo\orm\Model {
     return function ($q) {
       $q->where('@show_in_dashboard = ?', array(true))
         ->order('@index');
+    };
+  }
+  
+  static public function forExport() {
+    return function ($q) {
+      $q->order('@index');
     };
   }
   
