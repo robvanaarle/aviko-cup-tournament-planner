@@ -39,13 +39,53 @@ $(document).ready(function() {
               <td valign='top' style='text-align:center;'><?php echo $this->escape($match->field->name) ?></td>
               <td valign='top'><?php echo $this->escape($match->home_team->name)?> - <?php echo $this->escape($match->away_team->name)?></td>
               <td valign='top' style='text-align:center;'><?php echo $match['goals_home'] ?> - <?php echo $match['goals_away'] ?></td>
-          </tr>
+         </tr>
          <?php $prevMatch = $match ?>
          <?php endforeach ?>
        </table>
     </div>
   </div>
   <?php endforeach ?>
+  
+  <?php $totalBoxCount += count($tournament->groups) ?>
+  <?php foreach ($tournament->groups as $group): ?>
+  
+  <div class="item">
+    <div class="box">
+      <div class="header"><?php echo $this->escape($tournament->name)?> - <?php echo $this->escape($group->name) ?></div>
+       <table cellpadding='2' cellspacing='0' width='860'>
+         <tr>
+           <td class='head' width='30'></td>
+           <td class='head' width='auto'>Team</td>
+           <td class='head' width='60' style='text-align:center;'>P</td>
+           <td class='head' width='60' style='text-align:center;'>W</td>
+           <td class='head' width='60' style='text-align:center;'>D</td>
+           <td class='head' width='60' style='text-align:center;'>L</td>
+           <td class='head' width='35'></td>
+           <td class='head' width='60' style='text-align:center;'>PTS</td>
+           <td class='head' width='60' style='text-align:center;'>GD</td>
+           <td class='head' width='60' style='text-align:center;'>GF-GA</td>
+         </tr>
+         <?php foreach ($group->related('standings')->orderByIndex()->withTeam()->all() as $standing): ?>
+         <tr>
+           <td valign='top'><?php echo $standing->getPosition() ?>.</td>
+           <td valign='top'><?php echo $this->escape($standing->team->name) ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->getPlayed() ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->won ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->drawn ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->lost ?></td>
+           <td></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->getPoints() ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->getGoalsDifference() ?></td>
+           <td valign='top' style='text-align:center;'><?php echo $standing->goals_for ?>-<?php echo $standing->goals_against ?></td>
+         </tr>
+         <?php endforeach ?>
+       </table>
+    </div>
+  </div>
+  
+  <?php endforeach ?>
+
   <?php endforeach ?>
 </div>
 

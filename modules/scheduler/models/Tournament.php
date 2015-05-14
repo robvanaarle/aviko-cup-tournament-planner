@@ -36,7 +36,8 @@ class Tournament extends \ultimo\orm\Model {
   
   static public function forDashboard() {
     return function ($q) {
-      $q->where('@show_in_dashboard = ?', array(true))
+      $q->with('@groups')
+        ->where('@show_in_dashboard = ?', array(true))
         ->order('@index');
     };
   }
