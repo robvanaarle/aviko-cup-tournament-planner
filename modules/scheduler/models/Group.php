@@ -7,9 +7,8 @@ class Group extends \ultimo\orm\Model {
   public $name;
   public $tournament_id;
   public $index;
-  public $enabled = true;
   
-  static protected $fields = array('id', 'name', 'tournament_id', 'index', 'enabled');
+  static protected $fields = array('id', 'name', 'tournament_id', 'index');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $relations = array(

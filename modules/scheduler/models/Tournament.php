@@ -9,12 +9,13 @@ class Tournament extends \ultimo\orm\Model {
   public $match_duration;
   public $between_duration;
   public $starts_at;
+  public $show_in_dashboard = true;
   public $index;
   
   const FIELD_TYPE_WHOLE = 'whole';
   const FIELD_TYPE_HALF = 'half';
   
-  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'index');
+  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'show_in_dashboard', 'index');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $relations = array(
@@ -35,7 +36,8 @@ class Tournament extends \ultimo\orm\Model {
   
   static public function forDashboard() {
     return function ($q) {
-      $q->order('@index');
+      $q->where('@show_in_dashboard = ?', array(true))
+        ->order('@index');
     };
   }
   

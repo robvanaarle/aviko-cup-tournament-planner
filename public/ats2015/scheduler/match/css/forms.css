@@ -24,6 +24,13 @@
     display: none;
   }
 
+  #content {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  
   body {
     margin: 0;
     padding: 0;

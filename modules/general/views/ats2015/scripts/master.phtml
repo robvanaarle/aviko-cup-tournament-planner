@@ -39,8 +39,10 @@
       <?php echo $this->subtitle() ?>
     </div>
 
-    <div id="content">
-    <?php echo $this->content ?>
+    <div id="content-wrapper">
+      <div id="content">
+      <?php echo $this->content ?>
+      </div>
     </div>
     
     <?php $this->headScript()->prependJavascriptFile("http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js") ?>

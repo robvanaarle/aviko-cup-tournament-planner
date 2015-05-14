@@ -41,9 +41,15 @@ a {
     size: 20pt;
   }
 }
+#content-wrapper {
+  width: 100%;
+}
 
 #content {
   padding: 20px 10px;
+  margin: 0 auto;
+  overflow: auto;
+  width: 900px;
   
   .section {
     padding-left: 20px;
