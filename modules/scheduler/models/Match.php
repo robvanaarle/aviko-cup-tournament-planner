@@ -120,7 +120,7 @@ class Match extends \ultimo\orm\Model {
   
   static public function current() {
     return function ($q) {
-      $q->where('@starts_at >= ? AND @starts_at <= ?', array(date("Y-m-23 H:i:s", time()-30*60), date("Y-m-23 H:i:s", time()+30*60)))
+      $q->where('@starts_at >= ? AND @starts_at <= ?', array(date("Y-m-d H:i:s", time()-30*60), date("Y-m-d H:i:s", time()+30*60)))
         ->order('@starts_at', 'ASC');
     };
   }

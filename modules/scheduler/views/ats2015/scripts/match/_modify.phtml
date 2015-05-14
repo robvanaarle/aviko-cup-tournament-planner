@@ -1,5 +1,9 @@
 <form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
   
+  <?php if (isset($this->form['returnUrl'])): ?>
+  <input type="hidden" name="form[returnUrl]" value="<?php echo $this->escape($this->form['returnUrl']) ?>" />
+  <?php endif ?>
+  
   <?php if ($this->action == 'update'): ?>
   <input type="hidden" name="id" value="<?php echo $this->match->id ?>" />
   <dl>
@@ -7,10 +11,28 @@
     <dd><?php echo $this->match->id ?></dd>
   </dl>
   <?php endif ?>
+
+  <div>
+    <dl style="float: left; width: 200px">
+      <dt><label for="goals_home"><?php echo $this->escape($this->match->home_team->name) ?></label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'goals_home')?>
+        <input style="width: 50px" type="text" name="form[goals_home]" id="goals_home" value="<?php echo $this->escape($this->form['goals_home'])?>" />
+      </dd>
+    </dl>
+    
+    <div style="float: left; margin-top: 20px; width: 50px">-</div>
+
+    <dl style="float: left; clear:right">
+      <dt><label for="goals_away"><?php echo $this->escape($this->match->away_team->name) ?></label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'goals_away')?>
+        <input style="width: 50px" type="text" name="form[goals_away]" id="goals_away" value="<?php echo $this->escape($this->form['goals_away'])?>" />
+      </dd>
+    </dl>
+  </div>
   
-  <?php if (isset($this->form['returnUrl'])): ?>
-  <input type="hidden" name="form[returnUrl]" value="<?php echo $this->escape($this->form['returnUrl']) ?>" />
-  <?php endif ?>
+  <div style="clear: both"></div>
   
   <dl>
     <dt><label for="starts_at">Start</label></dt>
@@ -36,24 +58,6 @@
     <dt><label for="group">Poule</label></dt>
     <dd><?php echo $this->escape($this->match->group->name)?></dd>
   </dl>
-  
-  <dl>
-    <dt><label for="goals_home"><?php echo $this->escape($this->match->home_team->name) ?></label></dt>
-    <dd>
-      <?php echo $this->error($this->form, 'goals_home')?>
-      <input type="text" name="form[goals_home]" id="goals_home" value="<?php echo $this->escape($this->form['goals_home'])?>" />
-    </dd>
-  </dl>
-  
-  <dl>
-    <dt><label for="goals_away"><?php echo $this->escape($this->match->away_team->name) ?></label></dt>
-    <dd>
-      <?php echo $this->error($this->form, 'goals_away')?>
-      <input type="text" name="form[goals_away]" id="goals_away" value="<?php echo $this->escape($this->form['goals_away'])?>" />
-    </dd>
-  </dl>
-  
-  
   
   <dl>
     <dd>
