@@ -19,7 +19,7 @@ class Ticket {
     return count($this->subTickets);
   }
   
-  public function equalSubTicketTeams(Ticket $ticket) {
+  public function hasEqualSubTicketTeams(Ticket $ticket) {
     if ($this->count() != $ticket->count()) {
       return false;
     }
@@ -28,7 +28,7 @@ class Ticket {
     
     foreach ($this->subTickets as $needle) {
       foreach ($haystack as $index => $compare) {
-        if ($needle->equalTeams($compare)) {
+        if ($needle->hasEqualTeams($compare)) {
           unset($haystack[$index]);
           continue 2;
         }
@@ -39,7 +39,7 @@ class Ticket {
     return true;
   }
   
-  public function equalSubTicket(Ticket $ticket) {
+  public function hasEqualSubTickets(Ticket $ticket) {
     if ($this->count() != $ticket->count()) {
       return false;
     }
@@ -59,11 +59,15 @@ class Ticket {
     return true;
   }
   
+  public function equals(Ticket $ticket) {
+    return $this->assignIndex == $ticket->assignIndex && $this->hasEqualSubTickets($ticket);
+  }
+  
   public function compareStandingTo(Ticket $ticket) {
     $result = $this->subTickets[0]->standings[0]->compareTo($ticket->subTickets[0]->standings[0]);
     
     // if the subtickets are equal (standings should always be equal), then prefer lower assign indices
-    if ($this->subTickets[0]->equalTeams($ticket->subTickets[0])) {
+    if ($this->subTickets[0]->hasEqualTeams($ticket->subTickets[0])) {
       if ($result != 0) {
         throw new \Exception("Equal subticket teams with different standings: " . $this . " <-> " . $ticket);
       }

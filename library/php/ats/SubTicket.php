@@ -21,10 +21,10 @@ class SubTicket {
   }
   
   public function equals(SubTicket $subTicket) {
-    return $this->assignIndex == $subTicket->assignIndex && $this->equalTeams($subTicket);
+    return $this->assignIndex == $subTicket->assignIndex && $this->hasEqualTeams($subTicket);
   }
   
-  public function equalTeams(SubTicket $subTicket) {
+  public function hasEqualTeams(SubTicket $subTicket) {
     if ($this->count() != $subTicket->count()) {
       return false;
     }

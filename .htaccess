@@ -7,6 +7,11 @@ php_value mbstring.detect_order UTF-8
 
 RewriteEngine On
 
+# rewrite root for live
+RewriteCond %{HTTP_HOST} robvanaarle.nl$
+RewriteCond %{REQUEST_URI} !^/aviko/public/.*$
+RewriteRule ^(.*)$ public/$1
+
 # rewrite root for lan
 RewriteCond %{HTTP_HOST} aviko.lan$
 RewriteCond %{REQUEST_URI} !^/public/.*$

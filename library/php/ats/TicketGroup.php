@@ -62,6 +62,30 @@ class TicketGroup {
     return $group;
   }
   
+  public function count() {
+    return count($this->tickets);
+  }
+  
+  public function equals(TicketGroup $ticketGroup) {
+    if ($this->count() != $ticketGroup->count()) {
+      return false;
+    }
+    
+    $haystack = $ticketGroup->tickets;
+    
+    foreach ($this->tickets as $needle) {
+      foreach ($haystack as $index => $compare) {
+        if ($needle->equals($compare)) {
+          unset($haystack[$index]);
+          continue 2;
+        }
+      }
+      return false;
+    }
+    
+    return true;
+  }
+  
   public function isFull() {
     return count($this->tickets) >= $this->size;
   }
@@ -73,7 +97,7 @@ class TicketGroup {
     $ticketBuckets = array();
     foreach ($this->tickets as $ticket) {
       for ($i=0; $i<count($ticketBuckets); $i++) {
-        if ($ticket->equalSubTicket($ticketBuckets[$i][0])) {
+        if ($ticket->hasEqualSubTickets($ticketBuckets[$i][0])) {
           $ticketBuckets[$i][] = $ticket;
           continue 2;
         }
@@ -110,7 +134,7 @@ class TicketGroup {
         if ($normalizedTicket->count() == 1 &&
             $normalizedTicket->assignIndex == 0 &&
             $normalizedTicket->subTickets[0]->assignIndex != $subTicketBuckets[$i][0]->subTickets[0]->assignIndex &&
-            $normalizedTicket->equalSubTicketTeams($subTicketBuckets[$i][0])) {
+            $normalizedTicket->hasEqualSubTicketTeams($subTicketBuckets[$i][0])) {
           $subTicketBuckets[$i][] = $normalizedTicket;
           continue 2;
         }

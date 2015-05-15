@@ -19,7 +19,7 @@ class GroupTeamController extends \ultimo\mvc\Controller {
     if ($groupTeam === null) {
       throw new \ultimo\mvc\exceptions\DispatchException("GroupTeam with id '{$id}' does not exist.", 404);
     }
-
+    
     $groupTeam->move($this->request->getParam('count', 0));
     
     return $this->getPlugin('redirector')->redirect(array('action' => 'read', 'controller' => 'group', 'id' => $groupTeam->group_id));

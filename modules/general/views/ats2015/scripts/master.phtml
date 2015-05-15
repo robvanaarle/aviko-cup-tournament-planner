@@ -30,8 +30,7 @@
       
       <div id="user-menu">
         <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
-        <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
-        | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
+          <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
         <?php else: ?>
           <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Login</a>
         <?php endif ?>

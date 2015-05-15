@@ -8,11 +8,11 @@ set_include_path(get_include_path() . PATH_SEPARATOR . '../');
 
 if (strpos($_SERVER['HTTP_HOST'], 'aviko.lan') !== false) {
   $environment = 'development';
-  //$basePath = '';
+  $basePath = '';
   ini_set('display_errors', 1);
 } else {
   $environment = 'production';
-  //$basePath = '';
+  $basePath = '/aviko/';
   //if (isset($_GET['__basePath'])) {
   //  $basePath = $_GET['__basePath'];
  // }
@@ -44,7 +44,7 @@ $errorHandler->register();
 $app = new \ultimo\mvc\Application('aviko', '../');
 
 $request = $app->getSapi()->getRequest(new \ultimo\mvc\Request());
-//$request->setBasePath($basePath);
+$request->setBasePath($basePath);
 
 $app->setRegistry('ultimo.debug.error.ErrorHandler', $errorHandler)
     ->setEnvironment($environment)

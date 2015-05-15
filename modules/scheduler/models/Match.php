@@ -24,7 +24,8 @@ class Match extends \ultimo\orm\Model {
   );
   
   static protected $scopes = array('forGroup', 'withTeamsAndField', 'forTournament', 
-      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'future', 'current');
+      'withGroup', 'forTeam', 'withGroupAndTournament', 'played', 'future', 'current',
+      'orderByStart');
   
   static protected $fetchers = array('groupedByStart');
   
@@ -63,16 +64,20 @@ class Match extends \ultimo\orm\Model {
     return function ($q) use ($tournament_id) {
       $q->with('@group')
         ->where('@group.tournament_id = ?', array($tournament_id))
-        ->order('starts_at', 'ASC')
-        ->order('id', 'ASC');
+        ->order('starts_at', 'ASC');
     };
   }
   
   static public function forTeam($team_id) {
     return function ($q) use ($team_id) {
       $q->where('@home_team_id = ? OR @away_team_id = ?', array($team_id, $team_id))
-        ->order('starts_at', 'ASC')
-        ->order('id', 'ASC');
+        ->order('starts_at', 'ASC');
+    };
+  }
+  
+  static public function orderByStart() {
+    return function ($q) {
+      $q->order('starts_at', 'ASC');
     };
   }
   

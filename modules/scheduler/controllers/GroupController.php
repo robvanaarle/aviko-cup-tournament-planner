@@ -22,7 +22,7 @@ class GroupController extends \ultimo\mvc\Controller {
     
     $this->view->tournament = $group->related('tournament')->first();
     $this->view->teams = $group->teams()->all();
-    $this->view->matches = $group->related('matches')->withTeamsAndField()->all();
+    $this->view->matches = $group->related('matches')->orderByStart()->withTeamsAndField()->all();
     $this->view->group = $group;
     $this->view->standings = $group->related('standings')->orderByIndex()->withTeam()->all();
   }

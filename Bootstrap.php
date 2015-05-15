@@ -4,6 +4,9 @@ use ultimo\mvc\routers\rules\DynamicRule;
 use ultimo\mvc\routers\rules\StaticRule;
 class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\ApplicationPlugin {
   public function run() {
+    // Config
+    $this->application->addPlugin(new \ultimo\util\config\mvc\plugins\FileConfigPlugin('\ultimo\util\config\IniConfig', 'ini'), 'config');
+   
     $theme = 'ats2015';
     // router
     $this->initRoutes();
@@ -19,10 +22,9 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     $uormPlugin = new \ultimo\orm\mvc\plugins\OrmManagers();
     $uormPlugin->addGlobalModel('`user_user`', 'User', '\ucms\user\models');
     
-    if ($this->application->getEnvironment() == 'development') {
-      $uormPlugin->addConnection('master', 'mysql:dbname=aviko;host=127.0.0.1', 'root');
-    } else {
-      
+    $dbConfig = $this->application->getPlugin('config')->getConfig('database');
+    foreach ($dbConfig['connections'] as $name => $connection) {
+      $uormPlugin->addConnection($name, $connection['dsn'], $connection['username'], $connection['password']);
     }
     
     $this->application->addPlugin($uormPlugin, 'uorm');
@@ -47,8 +49,7 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     $guestUser->role = 'guest';
     $this->application->addPlugin(new \ultimo\security\mvc\plugins\Authorizer($guestUser, $acl), 'authorizer');
     
-    // Config
-    $this->application->addPlugin(new \ultimo\util\config\mvc\plugins\FileConfigPlugin('\ultimo\util\config\IniConfig', 'ini'));
+    
     
     // FormBroker
     $this->application->addPlugin(new \ultimo\form\mvc\FormsPlugin($theme));

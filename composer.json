@@ -130,7 +130,11 @@
         "robvanaarle/ultimo-translate-mvc": "dev-master",
         "robvanaarle/ultimo-orm-mvc": "dev-master",
         "robvanaarle/ultimo-filemtimecache": "dev-master",
-        "robvanaarle/ucms-user": "dev-master"
+        "robvanaarle/ucms-user": "dev-master",
+        "mrclay/minify": "2.2.*"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "3.7.*"
     },
     "autoload": {
     		"psr-4": {
