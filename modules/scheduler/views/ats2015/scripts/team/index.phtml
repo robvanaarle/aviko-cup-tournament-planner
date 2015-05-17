@@ -1,14 +1,14 @@
-<?php $this->subtitle('Fields') ?>
+<?php $this->subtitle('Teams') ?>
 
-<h3>Alle velden</h3>
+<h3>Alle teams</h3>
 <div class="section">
   <table>
     <tr>
       <th style="width: 500px">Naam</th>
     </tr>
-    <?php foreach ($this->fields as $field): ?>
+    <?php foreach ($this->teams as $team): ?>
     <tr>
-      <td><a href="<?php echo $this->url(array('action' => 'read', 'id' => $field->id)) ?>"><?php echo $this->escape($field->name) ?></a></td>
+      <td><a href="<?php echo $this->url(array('action' => 'read', 'id' => $team->id)) ?>"><?php echo $this->escape($team->name) ?></a></td>
     </tr>
     <?php endforeach ?>
   </table>

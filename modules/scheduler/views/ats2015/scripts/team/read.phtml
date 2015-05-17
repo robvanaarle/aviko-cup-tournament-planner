@@ -1,5 +1,20 @@
-<?php $this->subtitle('Teams') ?>
+<?php $this->subtitle('Teams', $this->url(array('action' => 'index'))) ?>
 <?php $this->subtitle($this->team->name) ?>
+
+<h3>Toernooien en poules</h3>
+<div class="section">
+  <table>
+    <tr>
+      <th style="width: 300px">Toernooi</th>
+      <th style="width: 300px">Poule</th>
+    </tr>
+    <?php foreach ($this->groups as $group): ?>
+    <tr>
+      <td><a href="<?php echo $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $group->tournament->id)) ?>"><?php echo $this->escape($group->tournament->name) ?></a></td>
+      <td><a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'read', 'id' => $group->id)) ?>"><?php echo $this->escape($group->name) ?></a></td>
+    <?php endforeach ?>
+  </table>
+</div>
 
 <h3>Eigenschappen</h3>
 <div class="section">

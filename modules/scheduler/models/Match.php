@@ -111,7 +111,7 @@ class Match extends \ultimo\orm\Model {
       $q->with('@home_team')
         ->with('@away_team')
         ->with('@field')
-        ->order('@field.index', 'ASC');
+        ->order('@field.name');
     };
   }
   

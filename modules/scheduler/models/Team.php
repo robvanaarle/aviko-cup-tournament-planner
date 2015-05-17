@@ -14,7 +14,7 @@ class Team extends \ultimo\orm\Model {
     'group_teams' => array('GroupTeam', array('id' => 'team_id'), self::ONE_TO_MANY)
   );
   
-  static protected $scopes = array('forGroup', 'orderByName', 'withoutTeams');
+  static protected $scopes = array('forGroup', 'orderByName', 'withoutTeams', 'groups');
   
   static protected $fetchers = array('fetchIdNameHash');
    
@@ -54,6 +54,16 @@ class Team extends \ultimo\orm\Model {
       $q->where('@home_team_id = ? OR @away_team_id = ?', array($model->id, $model->id))
         ->order('starts_at', 'ASC')
         ->order('id', 'ASC');
+    });
+    return $staticModel;
+  }
+  
+  public function groups() {
+    $model = $this;
+    $staticModel = $this->_manager->getStaticModel('Group');
+    $staticModel->scope(function ($q) use ($model) {
+      $q->with('@group_teams')
+        ->where('@group_teams.team_id = ?', array($model->id));
     });
     return $staticModel;
   }

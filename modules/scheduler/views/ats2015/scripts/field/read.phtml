@@ -1,0 +1,22 @@
+<?php $this->subtitle('Velden', $this->url(array('action' => 'index'))) ?>
+<?php $this->subtitle($this->field->name) ?>
+
+<h3>Eigenschappen</h3>
+<div class="section">
+  <table class="properties">
+    <tr>
+      <td class="name">Naam</td>
+      <td class="value"><?php echo $this->escape($this->field->name)?></td>
+    </tr>
+  </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('action' => 'update')) ?>">
+    <input type="hidden" name="id" value="<?php echo $this->field->id?>" />
+    <button type="submit">Wijzig <img src="ats2015/general/images/icons/16x16/edit.png" style="vertical-align: middle" /></button>
+  </form>
+</div>
+
+<h3>Wedstrijden</h3>
+<div class="section">
+  <?php echo $this->partial('match/_table.phtml', array('groupByStartsAt' => false, 'matches' => $this->matches)) ?>
+</div>

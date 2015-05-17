@@ -12,6 +12,10 @@ class TeamController extends \ultimo\mvc\Controller {
     $this->manager = $this->module->getPlugin('uorm')->getManager();
   }
   
+  public function actionIndex() {
+    $this->view->teams = $this->manager->Team->orderByName()->all();
+  }
+  
   public function actionRead() {
     $id = $this->request->getParam('id');
     $team = $this->manager->Team->get($id);
@@ -24,7 +28,27 @@ class TeamController extends \ultimo\mvc\Controller {
     
     
     $this->view->matches = $team->matches()->withTeamsAndField()->withGroupAndTournament()->all();
+    $this->view->groups = $team->groups()->withTournament()->all();
+  }
+  
+  public function actionCreate() {
+
+    $form = $this->module->getPlugin('formBroker')->createForm(
+      'team\CreateForm',
+      $this->request->getParam('form', array())
+    );
+     
+    if ($this->request->isPost()) {
+      if ($form->validate()) {
+        $team = $this->manager->Team->create();
+        $team->name = $form['name'];
+        $team->save();
+        
+        return $this->getPlugin('redirector')->redirect(array('action' => 'index'));
+      }
+    }
     
+    $this->view->form = $form;
   }
   
   public function actionUpdate() {

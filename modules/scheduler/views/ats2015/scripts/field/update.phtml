@@ -1,0 +1,7 @@
+<?php $this->subtitle('Velden', $this->url(array('action' => 'index'))) ?>
+<?php $this->subtitle($this->field->name, $this->url(array('action' => 'read', 'id' => $this->field->id))) ?>
+<?php $this->subtitle('wijzig') ?>
+
+<div class="section">
+  <?php echo $this->partial('field/_modify.phtml', array('action' => 'update')) ?>
+</div>
