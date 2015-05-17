@@ -9,6 +9,7 @@ if (!isset($this->highlightTeamId)) { $this->highlightTeamId = -1; }
 ?>
 <table>
   <tr>
+    <th>Datum</th>
     <th>Tijd</th>
     <th style="width: 30px">Veld</th>
     <?php if (!$this->hideTournaments): ?>
@@ -29,6 +30,11 @@ if (!isset($this->highlightTeamId)) { $this->highlightTeamId = -1; }
   <?php foreach ($this->matches as $i => $match): ?>
   <?php $isNewGroup = ($prevMatch === null || $prevMatch->starts_at != $match->starts_at) ?>
   <tr <?php if ($isNewGroup && $i>0 && $this->groupByStartsAt): ?>class="first-of-group"<?php endif?>>
+    <td style="text-align: right">
+      <?php if ($isNewGroup || !$this->groupByStartsAt): ?>
+      <?php echo $this->locale()->getFormatter()->formatDate($match->starts_at, 'short', "Y-m-d H:i:s") ?>
+      <?php endif ?>
+    </td>
     <td style="text-align: right">
       <?php if ($isNewGroup || !$this->groupByStartsAt): ?>
       <?php echo $this->locale()->getFormatter()->formatTime($match->starts_at, 'short', "Y-m-d H:i:s") ?>

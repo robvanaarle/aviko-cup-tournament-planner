@@ -1,0 +1,25 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <?php if ($this->action == 'create'): ?>
+  <input type="hidden" name="group_id" value="<?php echo $this->group->id ?>" />
+  <?php endif ?>
+
+  <dl>
+    <dt><label for="team_id">Team</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'team_id')?>
+      <?php echo $this->widget('Select', array(
+        'id' => 'team_id',
+        'name' => 'form[team_id]',
+        'value' => $this->form['team_id'],
+        'options' => $this->form->getConfig('availableTeams')
+      )) ?>
+    </dd>
+  </dl>
+
+  <dl>
+    <dd>
+      <button type="submit">Opslaan</button>
+    </dd>
+  </dl>
+</form>

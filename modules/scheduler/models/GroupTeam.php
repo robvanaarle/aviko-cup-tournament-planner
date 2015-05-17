@@ -21,4 +21,20 @@ class GroupTeam extends \ultimo\orm\Model {
   
   static protected $plugins = array('Sequence');
   static public $_sequenceGroupFields = array('group_id');
+  
+  public function beforeDelete() {
+    // delete team matches and standing for the group
+    $standing = $this->_manager->select('Standing')
+                               ->where('@group_id = ?', array($this->group_id))
+                               ->where('@team_id = ?', array($this->team_id))
+                               ->first();
+    if ($standing !== null) {
+      $standing->delete();
+    }
+    
+    $this->_manager->select('Match')
+                   ->where('@group_id = ?', array($this->group_id))
+                   ->where('(@home_team_id = ? OR @away_team_id = ?)', array($this->team_id, $this->team_id))
+                   ->delete();
+  }
 }

@@ -5,17 +5,13 @@ namespace modules\scheduler\models;
 class Tournament extends \ultimo\orm\Model {
   public $id;
   public $name;
-  public $field_type;
   public $match_duration;
   public $between_duration;
   public $starts_at;
   public $show_in_dashboard = true;
   public $index;
   
-  const FIELD_TYPE_WHOLE = 'whole';
-  const FIELD_TYPE_HALF = 'half';
-  
-  static protected $fields = array('id', 'name', 'field_type', 'match_duration', 'between_duration', 'starts_at', 'show_in_dashboard', 'index');
+  static protected $fields = array('id', 'name', 'match_duration', 'between_duration', 'starts_at', 'show_in_dashboard', 'index');
   static protected $primaryKey = array('id');
   static protected $autoIncrementField = 'id';
   static protected $relations = array(
@@ -77,6 +73,18 @@ class Tournament extends \ultimo\orm\Model {
       $q->with('@tournament_fields')
         ->where('@tournament_fields.tournament_id = ?', array($model->id))
         ->order('@tournament_fields.index', 'ASC');
+    });
+    return $staticModel;
+  }
+  
+  public function availableFields() {
+    $staticModel = $this->_manager->getStaticModel('Field');
+    
+    $model = $this;
+    $staticModel->scope(function ($q) use ($model) {
+      $withoutFieldIds = array_keys($model->relatedFields()->fetchIdNameHash());
+      $withoutFieldIds[] = 0;
+      $q->where('@id NOT IN ?*', array($withoutFieldIds));
     });
     return $staticModel;
   }
@@ -438,5 +446,15 @@ class Tournament extends \ultimo\orm\Model {
     }
     
     return $result;
+  }
+  
+  public function beforeDelete() {
+    // delete all groups, group-teams, matches and standings
+    $this->_manager->select('Group')
+                   ->where('@tournament_id = ?', array($this->id))
+                   ->with('@group_teams')
+                   ->with('@standings')
+                   ->with('@matches')
+                   ->delete();
   }
 }

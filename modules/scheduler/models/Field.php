@@ -18,7 +18,7 @@ class Field extends \ultimo\orm\Model {
     'tournament_fields' => array('TournamentField', array('id' => 'field_id'), self::ONE_TO_MANY)
   );
   
-  static protected $scopes = array('withFieldType');
+  static protected $scopes = array('withFieldType', 'orderByName');
   
   static public function withFieldType($field_type) {
     return function ($q) use ($field_type) {
@@ -35,6 +35,12 @@ class Field extends \ultimo\orm\Model {
       $result[$field->id] = $field->name;
     }
     return $result;
+  }
+  
+  static public function orderByName() {
+    return function ($q) {
+      $q->order('@name', 'ASC');
+    };
   }
   
   static protected $plugins = array('Sequence');

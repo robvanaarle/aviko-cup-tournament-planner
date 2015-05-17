@@ -1,0 +1,25 @@
+<form method="post" action="<?php echo $this->url(array('action' => $this->action))?>">
+  
+  <?php if ($this->action == 'create'): ?>
+  <input type="hidden" name="tournament_id" value="<?php echo $this->tournament->id ?>" />
+  <?php endif ?>
+
+  <dl>
+    <dt><label for="field_id">Team</label></dt>
+    <dd>
+      <?php echo $this->error($this->form, 'field_id')?>
+      <?php echo $this->widget('Select', array(
+        'id' => 'field_id',
+        'name' => 'form[field_id]',
+        'value' => $this->form['field_id'],
+        'options' => $this->form->getConfig('availableFields')
+      )) ?>
+    </dd>
+  </dl>
+
+  <dl>
+    <dd>
+      <button type="submit">Opslaan</button>
+    </dd>
+  </dl>
+</form>

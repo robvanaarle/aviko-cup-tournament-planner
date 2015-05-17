@@ -14,13 +14,36 @@ class Team extends \ultimo\orm\Model {
     'group_teams' => array('GroupTeam', array('id' => 'team_id'), self::ONE_TO_MANY)
   );
   
-  static protected $scopes = array('forGroup');
+  static protected $scopes = array('forGroup', 'orderByName', 'withoutTeams');
+  
+  static protected $fetchers = array('fetchIdNameHash');
    
+  
+  static public function fetchIdNameHash($s) {
+    $result = array();
+    foreach ($s->all() as $field) {
+      $result[$field->id] = $field->name;
+    }
+    return $result;
+  }
+  
   static public function forGroup($group_id) {
     return function ($q) use ($group_id) {
       $q->with('@group_teams')
         ->where('@group_teams.group_id = ?', array($group_id))
         ->order('@group_teams.index', 'ASC');
+    };
+  }
+  
+  static public function withoutTeams(array $teamIds) {
+    return function ($q) use ($teamIds) {
+      $q->where('@id NOT IN ?*', array($teamIds));
+    };
+  }
+  
+  static public function orderByName() {
+    return function ($q) {
+      $q->order('@name', 'ASC');
     };
   }
   

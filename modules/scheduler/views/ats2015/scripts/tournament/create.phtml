@@ -1,0 +1,6 @@
+<?php $this->subtitle('Toernooien', $this->url(array('controller' => 'tournament', 'action' => 'index'))) ?>
+<?php $this->subtitle('toevoegen') ?>
+
+<div class="section">
+  <?php echo $this->partial('tournament/_modify.phtml', array('action' => 'create')) ?>
+</div>

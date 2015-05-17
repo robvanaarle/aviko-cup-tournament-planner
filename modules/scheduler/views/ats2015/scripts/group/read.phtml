@@ -22,6 +22,7 @@
   <table>
     <tr>
       <th style="width: 400px">Naam</th>
+      <th style="width: 90px"></th>
       <th></th>
     </tr>
     <?php foreach ($this->teams as $team): ?>
@@ -31,18 +32,26 @@
         <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
         <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'move', 'id' => $team->group_teams[0]->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
       </td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'delete', 'id' => $team->group_teams[0]->id)) ?>" title="Verwijder team uit poule" onclick="return confirm('Weet u zeker dat u dit team uit de poule wilt verwijderen en daarmee ook de stand en wedstrijden ervan?')"><img src="ats2015/general/images/icons/16x16/delete2.png" /></a>
+      </td>
     </tr>
     <?php endforeach ?>
   </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'groupteam', 'action' => 'create')) ?>">
+    <input type="hidden" name="group_id" value="<?php echo $this->group->id ?>" />
+    <button type="submit">Toekennen <img src="ats2015/general/images/icons/16x16/add.png" style="vertical-align: middle" /></button>
+  </form>
 </div>
 
 <h3>Stand</h3>
 <div class="section">
   <?php echo $this->partial('standing/_table.phtml', array('standings' => $this->standings)) ?>
   <br />
-  <form method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'syncstandings')) ?>">
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'syncstandings')) ?>">
     <input type="hidden" name="id" value="<?php echo $this->group->id?>" />
-    <input type="submit" value="Herbereken stand" />
+    <button type="submit">Herbereken stand <img src="ats2015/general/images/icons/16x16/refresh.png" style="vertical-align: middle" /></button>
   </form>
 </div>
 

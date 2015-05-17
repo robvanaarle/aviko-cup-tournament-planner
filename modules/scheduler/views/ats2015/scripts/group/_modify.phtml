@@ -2,6 +2,8 @@
   
   <?php if ($this->action == 'update'): ?>
   <input type="hidden" name="id" value="<?php echo $this->group->id ?>" />
+  <?php elseif ($this->action == 'create'): ?>
+  <input type="hidden" name="tournament_id" value="<?php echo $this->tournament->id ?>" />
   <?php endif ?>
 
   <dl>

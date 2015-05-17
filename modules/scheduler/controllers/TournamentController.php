@@ -30,6 +30,31 @@ class TournamentController extends \ultimo\mvc\Controller {
     $this->view->tournament = $tournament;
   }
   
+  public function actionCreate() {
+    $form = $this->module->getPlugin('formBroker')->createForm(
+      'tournament\CreateForm',
+      $this->request->getParam('form', array())
+    );
+     
+    if ($this->request->isPost()) {
+      if ($form->validate()) {
+        $tournament = $this->manager->Tournament->create();
+        $tournament->name = $form['name'];
+        $tournament->starts_at = $form['starts_at'];
+        $tournament->match_duration = $form['match_duration'];
+        $tournament->between_duration = $form['between_duration'];
+        $tournament->show_in_dashboard = ($form['show_in_dashboard'] == true);
+        $tournament->save();
+        
+        return $this->getPlugin('redirector')->redirect(array('action' => 'index'));
+      }
+    } else {
+      $form['starts_at'] = date("Y-m-d H:i:s");
+    }
+    
+    $this->view->form = $form;
+  }
+  
   public function actionUpdate() {
     $id = $this->request->getParam('id');
     $tournament = $this->manager->Tournament->get($id);
@@ -61,6 +86,19 @@ class TournamentController extends \ultimo\mvc\Controller {
     $this->view->form = $form;
     
     $this->view->tournament = $tournament;
+  }
+  
+  public function actionDelete() {
+    $id = $this->request->getParam('id');
+    $tournament = $this->manager->Tournament->get($id);
+    
+    if ($tournament === null) {
+      throw new \ultimo\mvc\exceptions\DispatchException("Tournament with id '{$id}' does not exist.", 404);
+    }
+    
+    $tournament->delete();
+    
+    return $this->getPlugin('redirector')->redirect(array('action' => 'index'));
   }
   
   public function actionMove() {

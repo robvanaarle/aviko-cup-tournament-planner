@@ -13,10 +13,6 @@
       <td class="value"><?php echo $this->locale()->getFormatter()->formatDateTime($this->tournament->starts_at, 'full-short') ?></td>
     </tr>
     <tr>
-      <td class="name">Velden</td>
-      <td class="value"><?php $fieldNames = array(); foreach ($this->fields as $field) {$fieldNames[] = $this->escape($field->name);} ?><?php echo implode(', ', $fieldNames) ?></td>
-    </tr>
-    <tr>
       <td class="name">Wedstrijdduur</td>
       <td class="value"><?php echo $this->tournament->match_duration ?> mins</td>
     </tr>
@@ -41,23 +37,60 @@
   </form>
 </div>
 
+<h3>Velden</h3>
+<div class="section">
+  <table>
+    <tr>
+      <th style="width: 400px">Veld</th>
+      <th style="width: 90px"></th>
+      <th></th>
+    </tr>
+    <?php foreach ($this->fields as $field): ?>
+    <tr>
+      <td><a href="<?php echo $this->url(array('controller' => 'field', 'action' => 'read', 'id' => $field->id)) ?>"><?php echo $this->escape($field->name)?></a></td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'move', 'id' => $field->tournament_fields[0]->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
+        <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'move', 'id' => $field->tournament_fields[0]->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
+      </td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'delete', 'id' => $field->tournament_fields[0]->id)) ?>" title="Verwijder veld" onclick="return confirm('Weet u zeker dat u dit veld wilt verwijderen van dit toernooi? Wedstrijden op dit veld zullen een ander veld toegekend moeten krijgen.')"><img src="ats2015/general/images/icons/16x16/delete2.png" /></a>
+      </td>
+    </tr>
+    <?php endforeach ?>
+  </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'create')) ?>">
+    <input type="hidden" name="tournament_id" value="<?php echo $this->tournament->id ?>" />
+    <button type="submit">Toekennen <img src="ats2015/general/images/icons/16x16/add.png" style="vertical-align: middle" /></button>
+  </form>
+</div>
+
 <h3>Poules</h3>
 <div class="section">
-<table>
-  <tr>
-    <th style="width: 400px">Naam</th>
-    <th></th>
-  </tr>
-  <?php foreach ($this->groups as $group): ?>
-  <tr>
-    <td><a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'read', 'id' => $group->id)) ?>"><?php echo $this->escape($group->name)?></a></td>
-    <td>
-      <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'move', 'id' => $group->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
-      <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'move', 'id' => $group->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
-    </td>
-  </tr>
-  <?php endforeach ?>
-</table>
+  <table>
+    <tr>
+      <th style="width: 400px">Naam</th>
+      <th style="width: 90px"></th>
+      <th></th>
+    </tr>
+    <?php foreach ($this->groups as $group): ?>
+    <tr>
+      <td><a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'read', 'id' => $group->id)) ?>"><?php echo $this->escape($group->name)?></a></td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'move', 'id' => $group->id, 'count' => -1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_up_blue.png" /></a> 
+        <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'move', 'id' => $group->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
+      </td>
+      <td>
+        <a href="<?php echo $this->url(array('controller' => 'group', 'action' => 'delete', 'id' => $group->id)) ?>" title="Verwijder poule" onclick="return confirm('Weet u zeker dat u deze poule met stand en wedstrijden wilt verwijderen?')"><img src="ats2015/general/images/icons/16x16/delete2.png" /></a>
+      </td>
+    </tr>
+    <?php endforeach ?>
+  </table>
+  <br />
+  <form class="admin-button" method="get" action="<?php echo $this->url(array('controller' => 'group', 'action' => 'create')) ?>">
+    <input type="hidden" name="tournament_id" value="<?php echo $this->tournament->id ?>" />
+    <button type="submit">Toevoegen <img src="ats2015/general/images/icons/16x16/add.png" style="vertical-align: middle" /></button>
+  </form>
 </div>
 
 <h3>Wedstrijden</h3>

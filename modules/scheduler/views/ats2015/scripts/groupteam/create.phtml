@@ -1,0 +1,8 @@
+<?php $this->subtitle('Toernooien', $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index'))) ?>
+<?php $this->subtitle($this->tournament->name, $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id))) ?>
+<?php $this->subtitle($this->group->name, $this->url(array('controller' => 'group', 'action' => 'read', 'id' => $this->group->id))) ?>
+<?php $this->subtitle('Team toekennen') ?>
+
+<div class="section">
+  <?php echo $this->partial('groupteam/_modify.phtml', array('action' => 'create')) ?>
+</div>

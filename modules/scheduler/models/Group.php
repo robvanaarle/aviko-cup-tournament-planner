@@ -88,6 +88,20 @@ class Group extends \ultimo\orm\Model {
     return $staticModel;
   }
   
+  public function availableTeams() {
+    $staticModel = $this->_manager->getStaticModel('Team');
+    
+    $model = $this;
+    $staticModel->scope(function ($q) use ($model) {
+      $withoutTeamIds = array_keys($model->teams()->fetchIdNameHash());
+      
+      if (count($withoutTeamIds) > 0) {
+        $q->where('@id NOT IN ?*', array($withoutTeamIds));
+      }
+    });
+    return $staticModel;
+  }
+  
   public function syncStandings() {
     $matches = $this->related('matches')->played()->all();
     $teams = $this->teams()->all();
@@ -98,8 +112,10 @@ class Group extends \ultimo\orm\Model {
         $standings[$team->id] = $this->_manager->create('Standing');
         $standings[$team->id]->team_id = $team->id;
         $standings[$team->id]->group_id = $this->id;
+        $standings[$team->id]->save();
       }
       $standings[$team->id]->reset();
+      $standings[$team->id]->team = $team;
     }
     
     foreach ($matches as $match) {
@@ -118,11 +134,25 @@ class Group extends \ultimo\orm\Model {
       $standingAway->lost += ($match->homeWins() ? 1 : 0);
     }
     
-    usort($standings, function($a, $b) { return $b->compareTo($a); });
+    usort($standings, function($a, $b) {
+      $result = $b->compareTo($a);
+      if ($result == 0) {
+        return ($a->team->group_teams[0]->index > $b->team->group_teams[0]->index) ? 1 : -1;
+      } else {
+        return $result;
+      }
+    });
     
     foreach ($standings as $index => $standing) {
       $standing->index = $index;
       $standing->save();
     }
+  }
+  
+  public function beforeDelete() {
+    // delete all group-teams, matches and standings
+    $this->related('group_teams')->query()->delete();
+    $this->related('matches')->query()->delete();
+    $this->related('standings')->query()->delete();
   }
 }

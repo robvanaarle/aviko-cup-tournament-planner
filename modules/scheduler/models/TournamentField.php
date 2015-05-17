@@ -18,4 +18,14 @@ class TournamentField extends \ultimo\orm\Model {
   
   static protected $plugins = array('Sequence');
   static public $_sequenceGroupFields = array('tournament_id');
+  
+  public function beforeDelete() {
+    // set the field_id to null of all matches on this field in this tournament
+    $this->_manager->select('Match')
+                   ->where('@field_id = ?', array($this->field_id))
+                   ->with('@group')
+                   ->where('@group.tournament_id = ?', array($this->tournament_id))
+                   ->set('@field_id = ?', array(0))
+                   ->update();          
+  }
 }
