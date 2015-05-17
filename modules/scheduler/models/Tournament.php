@@ -456,5 +456,10 @@ class Tournament extends \ultimo\orm\Model {
                    ->with('@standings')
                    ->with('@matches')
                    ->delete();
+    
+    //delete tournament fields
+     $this->_manager->select('TournamentField')
+                    ->where('@tournament_id = ?', array($this->id))
+                    ->delete();
   }
 }
