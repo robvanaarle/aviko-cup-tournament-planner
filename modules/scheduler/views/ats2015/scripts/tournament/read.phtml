@@ -53,7 +53,7 @@
         <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'move', 'id' => $field->tournament_fields[0]->id, 'count' => 1)) ?>"><img src="ats2015/general/images/icons/16x16/arrow_down_green.png" /></a>
       </td>
       <td>
-        <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'delete', 'id' => $field->tournament_fields[0]->id)) ?>" title="Verwijder veld" onclick="return confirm('Weet u zeker dat u dit veld wilt verwijderen van dit toernooi? Wedstrijden op dit veld zullen een ander veld toegekend moeten krijgen.')"><img src="ats2015/general/images/icons/16x16/delete2.png" /></a>
+        <a href="<?php echo $this->url(array('controller' => 'tournamentfield', 'action' => 'delete', 'id' => $field->tournament_fields[0]->id)) ?>" title="Verwijder veld uit dit toernooi" onclick="return confirm('Weet u zeker dat u dit veld wilt verwijderen van dit toernooi? Wedstrijden op dit veld zullen een ander veld toegekend moeten krijgen.')"><img src="ats2015/general/images/icons/16x16/delete2.png" /></a>
       </td>
     </tr>
     <?php endforeach ?>
