@@ -6,10 +6,10 @@ class Module extends \ultimo\mvc\Module implements \ultimo\security\mvc\Authoriz
   public function getAcl() {
     $acl = new \ultimo\security\Acl();
     $acl->addRole('guest');
-    $acl->addRole('admin');
+    $acl->addRole('scheduler');
     
     $acl->allow('guest', array('match.dashboard'));
-    $acl->allow('admin');
+    $acl->allow('scheduler');
     return $acl;
   }
 

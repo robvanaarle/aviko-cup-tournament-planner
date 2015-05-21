@@ -12,6 +12,7 @@ class Module extends \ultimo\mvc\Module implements \ultimo\security\mvc\Authoriz
     $acl = $this->getParent()->getAcl();
 
     $acl->addRole('guest', array('user.guest'));
+    $acl->addRole('scheduler', array('user.member'));
     $acl->addRole('admin', array('user.admin'));
 
     return $acl;

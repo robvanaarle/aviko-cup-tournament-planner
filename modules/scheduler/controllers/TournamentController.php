@@ -135,10 +135,29 @@ class TournamentController extends \ultimo\mvc\Controller {
       throw new \ultimo\mvc\exceptions\DispatchException("Tournament with id '{$id}' does not exist.", 404);
     }
     
-    //if ($this->request->getParam('call')) {
-      $this->view->newGroups = $tournament->nextPhase2();
-      $this->view->decisions = \ats\DecisionSet::fromTicketGroups($this->view->newGroups);
-    //}
+    $form = $this->module->getPlugin('formBroker')->createForm(
+      'tournament\NextPhaseForm',
+      $this->request->getParam('form', array())
+    );
+     
+    if ($this->request->isPost()) {
+      if ($form->validate()) {
+        $newTournament = $tournament->createNextPhaseTournament($form['name'], $form['starts_at']);
+        
+        return $this->getPlugin('redirector')->redirect(array('action' => 'read', 'id' => $newTournament->id));
+      }
+    } else {
+      $form->fromArray(array(
+          'name' => $tournament->name . ' - volgende fase',
+          'starts_at' => \DateTime::createFromFormat('Y-m-d H:i:s', $tournament->starts_at)->add(new \DateInterval('P1D'))->format('Y-m-d H:i:s')
+      ));
+    }
+    
+    $this->view->form = $form;
+    
+    $ticketGroups = $tournament->getNextPhaseTicketGroups();
+    $this->view->ticketGroups = $ticketGroups;
+    $this->view->decisions = \ats\DecisionSet::fromTicketGroups($ticketGroups);
     
     $this->view->groups = $tournament->related('groups')->orderByIndex()->withFullStandings()->all();
     

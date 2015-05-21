@@ -1,0 +1,23 @@
+<?php $this->subtitle('Fout') ?>
+
+<h2>Foutmelding(en)</h2>
+<div class="section">
+<?php if ($this->ultimoEnvironment() == 'production'): ?>
+  <?php if ($this->httpStatusCode == 404): ?>
+    De gevraagde pagina bestaat niet.
+  <?php else: ?>
+    Er is een onbekende fout opgetreden. De beheerder van de website is op de hoogte gebracht. Probeer het later nogmaals.
+  <?php endif ?>
+<?php else: ?>
+  Exceptions:<br />
+  <?php foreach ($this->exceptions as $exception): ?>
+    <?php if ($exception instanceof \ultimo\mvc\exceptions\DispatchException): ?>
+      <h1>404 Page not found</h1>
+      <h4><?php echo $this->escape($exception->getMessage())?></h4>
+      <pre><?php print_r($this->request) ?></pre>
+    <?php else: ?>
+      <pre><?php echo $exception ?></pre>
+    <?php endif ?>
+  <?php endforeach ?>
+<?php endif ?>
+</div>

@@ -1,0 +1,47 @@
+<?php $this->subtitle("Gebruikers") ?>
+<?php $this->subtitle("Mijn account", $this->url(array('action' => 'index'))) ?>
+<?php $this->subtitle("Inloggegevens") ?>
+
+
+<div class="section">
+  <form method="post" action="<?php echo $this->url(array('action' => 'update'))?>">
+
+    <dl>
+      <dt><label for="username">Gebruikersnaam</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'username')?>
+        <input type="text" name="form[username]" id="username" value="<?php echo $this->escape($this->form['username'])?>" />
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label for="password">Nieuw wachtwoord</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'password')?>
+        <input type="password" name="form[password]" id="password" value="<?php echo $this->escape($this->form['password'])?>" />
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label for="password_repeat">Nieuw wachtwoord (herhaling)</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'password_repeat')?>
+        <input type="password" name="form[password_repeat]" id="password_repeat" value="<?php echo $this->escape($this->form['password_repeat'])?>" />
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label for="password_current">Huidig wachtwoord</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'password_current')?>
+        <input type="password" name="form[password_current]" id="password" value="<?php echo $this->escape($this->form['password_current'])?>" />
+      </dd>
+    </dl>
+
+    <dl>
+      <dd>
+        <button type="submit">Opslaan</button>
+      </dd>
+    </dl>
+  </form>
+</div>

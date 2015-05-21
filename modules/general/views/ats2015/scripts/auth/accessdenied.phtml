@@ -1,0 +1,6 @@
+<?php $this->subtitle('Toegang geweigerd') ?>
+
+<h2>Geen toegang</h2>
+<div class="section">
+  Toegang geweigerd tot <?php echo $this->deniedRequest->getModule() ?>\<?php echo ucfirst($this->deniedRequest->getController()) ?>Controller::<?php echo $this->deniedRequest->getAction() ?>()
+</div>

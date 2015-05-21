@@ -11,7 +11,7 @@ class Ticket extends \ultimo\phptpl\mvc\Helper {
   }
   
   public function toString() {
-    if ($this->ticket->count() == 1 && $this->ticket->subTickets[0]->count() == 1) {
+    if ($this->ticket->representsSingleTeam()) {
       return $this->standingToString($this->ticket->subTickets[0]->standings[0]);
     }
     
@@ -29,23 +29,28 @@ class Ticket extends \ultimo\phptpl\mvc\Helper {
     }
     
     if (!$containsSubTicketWithMultipleStandings) {
-      $result = array(implode(' en ', $result));
+      if (count($result) > 1) {
+        $lastTeam = array_pop($result);
+        $result = implode(', ', $result);
+        $result .= ' en ' . $lastTeam;
+        $result = array($result);
+      }
     }
     
     if ($this->ticket->count() > 1) {
       if ($containsSubTicketWithMultipleStandings) {
         for($i = 0; $i < count($result); $i++) {
-          $result[$i] = ' * ' . $result[$i];
+          $result[$i] = '<li>' . $result[$i] . "</li>";
         }
-        array_unshift($result, $this->ticket->assignIndex+1 . 'e plek uit beslissing tussen ');
+        array_unshift($result, $this->ticket->assignIndex+1 . 'e plek uit beslissing tussen de volgende beslissingen:' . "\n<ul>");
+        
+        $result[] = "</ul>";
       } else {
         $result[0] = $this->ticket->assignIndex+1 . 'e plek uit beslissing tussen ' . $result[0];
       }
     }
     
-    
-    return implode('<br />', $result);
-    
+    return implode("\n", $result);
   }
   
   protected function standingsToString(array $standings) {
@@ -53,7 +58,16 @@ class Ticket extends \ultimo\phptpl\mvc\Helper {
     foreach ($standings as $standing) {
       $result[] = $this->standingToString($standing);
     }
-    return implode(' en ', $result);
+    
+    if (count($result) > 1) {
+      $lastTeam = array_pop($result);
+      $result = implode(', ', $result);
+      $result .= ' en ' . $lastTeam;
+    } else {
+      return $result[0];
+    }
+    return $result;
+    //return implode(' en ', $result);
   }
   
   protected function standingToString($standing) {

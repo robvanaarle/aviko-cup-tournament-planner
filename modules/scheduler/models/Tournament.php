@@ -89,6 +89,31 @@ class Tournament extends \ultimo\orm\Model {
     return $staticModel;
   }
   
+  public function teams() {
+    $model = $this;
+    $staticModel = $this->_manager->getStaticModel('Team');
+    $staticModel->scope(function ($q) use ($model) {
+      $q->with('@group_teams')
+        ->with('@group_teams.group')
+        ->where('@group_teams.group.tournament_id = ?', array($model->id));
+    });
+    return $staticModel;
+  }
+  
+  public function availableTeams() {
+    $staticModel = $this->_manager->getStaticModel('Team');
+    
+    $model = $this;
+    $staticModel->scope(function ($q) use ($model) {
+      $withoutTeamIds = array_keys($model->teams()->fetchIdNameHash());
+      
+      if (count($withoutTeamIds) > 0) {
+        $q->where('@id NOT IN ?*', array($withoutTeamIds));
+      }
+    });
+    return $staticModel;
+  }
+  
   public function regenerateSchedule() {
     $groups = $this->_manager->Group->forTournament($this->id)->all();
     
@@ -221,7 +246,7 @@ class Tournament extends \ultimo\orm\Model {
     $this->_manager->Match->multiInsert($matchObjects);
   }
   
-  public function nextPhase2() {
+  public function getNextPhaseTicketGroups() {
     $standingGroups = $this->related('groups')->orderByIndex()->withFullStandings()->getWithGroupsAsKey();
     $ticketGroups = array();
     $indices = 0;
@@ -277,81 +302,6 @@ class Tournament extends \ultimo\orm\Model {
     //echo "<u>new groups after normalisation</u><br />" . implode("<br />", $targetGroups) . "<br /><br />";
     
     return $targetGroups;
-  }
-  
-  public function nextPhase() {
-    echo "<pre>";
-    $groups = $this->related('groups')->orderByIndex()->withFullStandings()->getWithGroupsAsKey();
-    
-    $result = array('standings' => array(), 'problems' => array());
-  
-    // start assigning teams at top of standings list
-    $currentStandingsIndex = 0;
-
-    // create a new group for each current group
-    $targetGroupIndex = 0;
-    foreach ($groups as $sourceGroup) {
-      $targetStandings = array();
-      $targetSize = count($sourceGroup->standings);
-
-      // repeat the process until the target standings have reached the target
-      // size
-      while(count($targetStandings) < $targetSize) {
-        // get all available teams at current standings index
-        $availableStandings = array();
-        foreach ($groups as $group) {
-          if (isset($group->standings[$currentStandingsIndex])) {
-            $availableStandings[] = $group->standings[$currentStandingsIndex];
-          }
-        }
-
-        // sort available standings by points
-        $availableStandings = Standing::sort($availableStandings);
-        
-        // determine how many standings to assign
-        $assignCount = min($targetSize - count($targetStandings), count($availableStandings));
-        
-        echo "New group " . $targetGroupIndex . ": ";
-        foreach ($availableStandings as $t) {
-          echo $t->team->name . ', ';
-        }
-        echo " ($assignCount)";
-        echo "\n";
-        
-        $problem = $this->detectNextPhaseProblems($availableStandings, $currentStandingsIndex, $targetGroupIndex, $assignCount, $groups, $targetSize - count($targetStandings));
-        if ($problem !== null) {
-          $result['problems'][] = $problem;
-        }
-        
-        // assign the teams and remove them from the standings
-        for($i = 0; $i < $assignCount; $i++) {
-          $standing = $availableStandings[$i];
-          $groups[$standing->group_id]->standings[$currentStandingsIndex] = null;
-          //unset($team['group']);
-          $targetStandings[] = $standing->team->name;
-        }
-
-        // if all available teams of the current standings index have been
-        // assigned, increment standings index
-        if ($assignCount == count($availableStandings)) {
-          $currentStandingsIndex++;
-        }
-
-      }
-
-      $targetGroupIndex++;
-      // add target standing to result
-      $result['standings'][] = $targetStandings;
-    }
-
-    //$result = $this->removeNonProblems($result);
-    
-    
-    echo "<pre>";
-    print_r($result);
-    exit();
-    
-    return $result;
   }
   
   protected function detectNextPhaseProblems(array $availableStandings, $currentStandingsIndex, $targetGroupIndex, $assignCount, $groups, $spotsRemaining) {
@@ -446,6 +396,51 @@ class Tournament extends \ultimo\orm\Model {
     }
     
     return $result;
+  }
+  
+  public function createNextPhaseTournament($name, $starts_at) {
+    // create the new tournament
+    $newTournament = $this->_manager->create('Tournament');
+    $newTournament->name = $name;
+    $newTournament->match_duration = $this->match_duration;
+    $newTournament->between_duration = $this->between_duration;
+    $newTournament->starts_at = $starts_at;
+    $newTournament->show_in_dashboard = false;
+    $newTournament->save();
+    
+    // copy the fields
+    $fields = $this->relatedFields()->all();
+    foreach ($fields as $field) {
+      $newTournamentField = $this->_manager->create('TournamentField');
+      $newTournamentField->tournament_id = $newTournament->id;
+      $newTournamentField->field_id = $field->id;
+      $newTournamentField->save();
+    }
+    
+    // fetch the old groups, so those names can be reused.
+    $groups = $this->related('groups')->orderByIndex()->all();
+    
+    // create a new group for each ticket group and add all teams of tickets
+    // that represent a single team
+    $ticketGroups = $this->getNextPhaseTicketGroups();
+    foreach ($ticketGroups as $index => $ticketGroup) {
+      $newGroup = $this->_manager->create('Group');
+      $newGroup->name = $groups[$index]->name;
+      $newGroup->tournament_id = $newTournament->id;
+      $newGroup->save();
+      
+      foreach ($ticketGroup->tickets as $ticket) {
+        if (!$ticket->representsSingleTeam()) {
+          continue;
+        }
+        $newGroupTeam = $this->_manager->create('GroupTeam');
+        $newGroupTeam->group_id = $newGroup->id;
+        $newGroupTeam->team_id = $ticket->subTickets[0]->standings[0]->team->id;
+        $newGroupTeam->save();
+      }
+    }
+
+    return $newTournament;
   }
   
   public function beforeDelete() {

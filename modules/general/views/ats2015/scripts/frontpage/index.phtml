@@ -1,1 +1,14 @@
-<?php $this->subtitle('Aviko Toernooi - programma manager') ?>
+<?php $this->subtitle('Aviko Cup - toernooi beheer') ?>
+
+<div style="text-align: center; margin: 50px 0 100px 0">
+  <img src="ats2015/general/images/logo_240x149.png" />
+</div>
+
+<h2>Welkom</h2>
+<div class="section">
+<?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
+  Met het menu bovenin kunnen de verschillende onderdelen van het toernooi beheerd worden.
+<?php else: ?>
+  <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Log in</a> om toegang te krijgen tot de beheer mogelijkheden.
+<?php endif; ?>
+</div>

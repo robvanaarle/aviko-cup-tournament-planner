@@ -87,6 +87,18 @@ class Ticket {
     return $mutations;
   }
   
+  public function representsSingleTeam() {
+    if ($this->count() != 1) {
+      return false;
+    }
+    foreach ($this->subTickets as $subTicket) {
+      if ($subTicket->count() != 1) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
   public function __toString() {
     //if ($this->count() == 0) {
     //  return '[]^' . ($this->assignIndex+1);

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <base href="<?php echo $this->baseUrl()?>" />
-    <?php $this->headTitle('Aviko Tournament Scheduler') ?>
+    <?php $this->headTitle('Aviko Cup - toernooi beheer') ?>
     <?php echo $this->headMeta() ?>
     <?php echo $this->headTitle()?>
     <?php echo $this->headStyle()?>
@@ -15,23 +15,27 @@
     <div id="main-menu">
     <a href="<?php echo $this->url(array(), 'general.frontpage.index') ?>">Home</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'dashboard')) ?>">Dashboard</a>
-    <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
+    <?php if ($this->authorizer()->isRole('scheduler')): ?>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'forms')) ?>">Wedstrijdbriefjes</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'current')) ?>">Actuele wedstrijden</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'team', 'action' => 'index')) ?>">Teams</a>
+      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'field', 'action' => 'index')) ?>">Velden</a>
       | <div style="display: inline">
         <form method="get" style="display: inline" action="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'update')) ?>">
           <input type="hidden" name="form[returnUrl]" value="<?php echo $this->url(array(), null, false)?>" />
-          #<input type="text" style="width: 60px" name="id" value="" />
+          Wedstrijd #<input type="text" style="width: 60px" name="id" value="" />
         </form>
       </div>
-      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'team', 'action' => 'index')) ?>">Teams</a>
-      | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'field', 'action' => 'index')) ?>">Velden</a>
+    <?php endif ?>
+    <?php if ($this->authorizer()->isAllowed('user.user.index', null, 'user')): ?>
+    | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
     <?php endif ?>
       
       
       <div id="user-menu">
         <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
+          <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'member', 'action' => 'index')) ?>">Mijn account</a> |
           <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'logout')) ?>">Uitloggen</a>
         <?php else: ?>
           <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'login')) ?>">Login</a>

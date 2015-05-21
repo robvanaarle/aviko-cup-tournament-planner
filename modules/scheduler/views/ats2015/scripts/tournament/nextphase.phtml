@@ -2,15 +2,6 @@
 <?php $this->subtitle($this->tournament->name, $this->url(array('controller' => 'tournament', 'action' => 'read', 'id' => $this->tournament->id))) ?>
 <?php $this->subtitle('Volgende fase') ?>
 
-<h3>Beslissingen</h3>
-<div class="section">
-  <?php if (isset($this->decisions) && $this->decisions->count() > 0): ?>
-  <?php echo nl2br($this->decisions) ?>
-  <?php else: ?>
-  geen
-  <?php endif ?>
-</div>
-
 <h3>Standen</h3>
 <div class="section">
   <div style="overflow: auto">
@@ -22,20 +13,22 @@
   </div>
 </div>
 
-<h3>Nieuwe poules</h3>
+<h3>Indeling poules volgende fase</h3>
 <div class="section">
   <div style="overflow: auto">
-    <?php foreach ($this->newGroups as $index => $newGroup): ?>
+    <?php foreach ($this->ticketGroups as $index => $ticketGroup): ?>
     <div style="float: left; margin: 0 10px 10px 0">
-      <table>
+      <table style="min-width: 576px">
         <tr>
-          <th class="caption">Nieuwe group <?php echo $index+1 ?></th>
+          <th class="caption" colspan="2"><?php echo $this->escape($this->groups[$index]->name) ?></th>
         </tr>
         <tr>
+          <th></th>
           <th>Team</th>
         </tr>
-        <?php foreach ($newGroup->tickets as $ticket): ?>
+        <?php foreach ($ticketGroup->tickets as $i => $ticket): ?>
         <tr>
+          <td style="vertical-align: top"><?php echo $i+1 ?>.</td>
           <td>
             <?php echo $this->ticket($ticket)->toString(); ?>
           </td>
@@ -45,4 +38,37 @@
     </div>
     <?php endforeach ?>
   </div>
+</div>
+
+<h3>Toernooi voor volgende fase aanmaken</h3>
+Via onderstaand formulier wordt een nieuw toernooi aangemaakt op basis van bovenstaande nieuwe indeling. Eventuele teams die nog deel uitmaken
+van een beslissing worden hierin niet meegenomen en dienen na de beslissing handmatig toegevoegd te worden in de poules. De beslissingen kunnen
+altijd nog op deze pagina geraadpleegd worden.
+<div class="section">
+  <form method="post" action="<?php echo $this->url(array('action' => 'nextphase'))?>">
+
+    <input type="hidden" name="id" value="<?php echo $this->tournament->id ?>" />
+
+    <dl>
+      <dt><label for="name">Naam</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'name')?>
+        <input type="text" name="form[name]" id="name" value="<?php echo $this->escape($this->form['name'])?>" />
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><label for="starts_at">Start</label></dt>
+      <dd>
+        <?php echo $this->error($this->form, 'starts_at')?>
+        <?php echo $this->widget('keithwood:datetimeentry', array('name' => 'form[starts_at]', 'value' => \DateTime::createFromFormat('Y-m-d H:i:s', $this->form['starts_at']), 'config' => array('phpDatetimeFormat' => 'Y-m-d H:i:s'))) ?>
+      </dd>
+    </dl>
+
+    <dl>
+      <dd>
+        <button type="submit">Aanmaken</button>
+      </dd>
+    </dl>
+  </form>
 </div>

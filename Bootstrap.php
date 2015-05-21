@@ -43,7 +43,8 @@ class Bootstrap extends \ultimo\mvc\Bootstrap implements \ultimo\mvc\plugins\App
     // Acl
     $acl = new \ultimo\security\Acl();
     $acl->addRole('guest');
-    $acl->addRole('admin', array('guest'));
+    $acl->addRole('scheduler', array('guest'));
+    $acl->addRole('admin', array('scheduler'));
     $guestUser = new \ucms\user\models\User();
     $guestUser->id = 0;
     $guestUser->role = 'guest';

@@ -24,7 +24,7 @@ class GroupteamController extends \ultimo\mvc\Controller {
       'groupteam\CreateForm',
       $this->request->getParam('form', array()),
       array(
-        'availableTeams' => $group->availableTeams()->orderByName()->fetchIdNameHash()
+        'availableTeams' => $group->related('tournament')->first()->availableTeams()->orderByName()->fetchIdNameHash()
       )
     );
      
