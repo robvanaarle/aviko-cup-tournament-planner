@@ -438,6 +438,9 @@ class Tournament extends \ultimo\orm\Model {
         $newGroupTeam->team_id = $ticket->subTickets[0]->standings[0]->team->id;
         $newGroupTeam->save();
       }
+      
+      // create standing
+      $newGroup->syncStandings();
     }
 
     return $newTournament;
