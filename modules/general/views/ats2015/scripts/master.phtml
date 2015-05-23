@@ -13,9 +13,9 @@
   </head>
   <body>
     <div id="main-menu">
-    <a href="<?php echo $this->url(array(), 'general.frontpage.index') ?>">Home</a>
+      <a href="<?php echo $this->url(array(), 'general.frontpage.index') ?>">Home</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'dashboard')) ?>">Dashboard</a>
-    <?php if ($this->authorizer()->isRole('scheduler')): ?>
+    <?php if ($this->authorizer()->isRole('scheduler.admin', 'modules\scheduler')): ?>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'tournament', 'action' => 'index')) ?>">Toernooien</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'forms')) ?>">Wedstrijdbriefjes</a>
       | <a href="<?php echo $this->url(array('module' => 'scheduler', 'controller' => 'match', 'action' => 'current')) ?>">Actuele wedstrijden</a>
