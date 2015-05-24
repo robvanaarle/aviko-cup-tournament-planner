@@ -1,6 +1,6 @@
 {
   "minimum-stability": "dev",
-  "name": "robvanaarle/aviko_tournament_schedule",
+  "name": "robvanaarle/aviko-cup-tournament-planner",
   "description": "Web application for planning the tournament 'Aviko Cup'",
   "type": "project",
   "keywords": [
