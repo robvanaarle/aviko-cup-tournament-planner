@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "752cc0480d912cb394b0e4aff30f357e",
+    "hash": "c29d284d8b44512b2ba75c4de93072bb",
     "packages": [
         {
             "name": "mrclay/minify",
@@ -52,26 +52,74 @@
             "time": "2014-10-30 22:58:02"
         },
         {
+            "name": "robvanaarle/ucms-tournamentplanner",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ucms-tournamentplanner.git",
+                "reference": "7aadaee6d384d21897a7c540c4fb6a5ac605f31d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ucms-tournamentplanner/zipball/7aadaee6d384d21897a7c540c4fb6a5ac605f31d",
+                "reference": "7aadaee6d384d21897a7c540c4fb6a5ac605f31d",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-mvc-acl": "dev-master",
+                "robvanaarle/ultimo-mvc-config": "dev-master",
+                "robvanaarle/ultimo-mvc-form": "dev-master",
+                "robvanaarle/ultimo-mvc-orm": "dev-master",
+                "robvanaarle/ultimo-mvc-phptpl": "dev-master",
+                "robvanaarle/ultimo-validation": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ucms\\tournamentplanner\\": "src/ucms/tournamentplanner/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Tournament planning module for Ultimo MVC",
+            "keywords": [
+                "UltimoMVC",
+                "planner",
+                "tournament"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ucms-tournamentplanner/tree/master",
+                "issues": "https://github.com/robvanaarle/ucms-tournamentplanner/issues"
+            },
+            "time": "2015-05-24 12:39:55"
+        },
+        {
             "name": "robvanaarle/ucms-user",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robvanaarle/ucms-user.git",
-                "reference": "df2f3b7323c7befdf488e751b892e243e2d7fc38"
+                "reference": "41ffb6481c452aeb525cb2bfa4de1d112918b883"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ucms-user/zipball/df2f3b7323c7befdf488e751b892e243e2d7fc38",
-                "reference": "df2f3b7323c7befdf488e751b892e243e2d7fc38",
+                "url": "https://api.github.com/repos/robvanaarle/ucms-user/zipball/41ffb6481c452aeb525cb2bfa4de1d112918b883",
+                "reference": "41ffb6481c452aeb525cb2bfa4de1d112918b883",
                 "shasum": ""
             },
             "require": {
-                "robvanaarle/ultimo-acl-mvc": "dev-master",
-                "robvanaarle/ultimo-config-mvc": "dev-master",
-                "robvanaarle/ultimo-form-mvc": "dev-master",
-                "robvanaarle/ultimo-orm-mvc": "dev-master",
-                "robvanaarle/ultimo-phptpl-mvc": "dev-master",
-                "robvanaarle/ultimo-translate-mvc": "dev-master",
+                "robvanaarle/ultimo-mvc-acl": "dev-master",
+                "robvanaarle/ultimo-mvc-config": "dev-master",
+                "robvanaarle/ultimo-mvc-form": "dev-master",
+                "robvanaarle/ultimo-mvc-orm": "dev-master",
+                "robvanaarle/ultimo-mvc-phptpl": "dev-master",
+                "robvanaarle/ultimo-mvc-translate": "dev-master",
                 "robvanaarle/ultimo-validation": "dev-master"
             },
             "type": "library",
@@ -97,7 +145,7 @@
                 "source": "https://github.com/robvanaarle/ucms-user/tree/master",
                 "issues": "https://github.com/robvanaarle/ucms-user/issues"
             },
-            "time": "2014-02-20 20:10:03"
+            "time": "2015-05-23 16:32:24"
         },
         {
             "name": "robvanaarle/ultimo-acl",
@@ -143,55 +191,6 @@
                 "issues": "https://github.com/robvanaarle/ultimo-acl/issues"
             },
             "time": "2014-02-22 10:51:13"
-        },
-        {
-            "name": "robvanaarle/ultimo-acl-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-acl-mvc.git",
-                "reference": "5b5bc7f439c5a9c32442a2b05037caefa4d1c9e8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-acl-mvc/zipball/5b5bc7f439c5a9c32442a2b05037caefa4d1c9e8",
-                "reference": "5b5bc7f439c5a9c32442a2b05037caefa4d1c9e8",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-acl": "dev-master",
-                "robvanaarle/ultimo-mvc": "dev-master",
-                "robvanaarle/ultimo-phptpl-mvc": "dev-master",
-                "robvanaarle/ultimo-session": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Access control list for Ultimo MVC",
-            "keywords": [
-                "UltimoMVC",
-                "access",
-                "acl",
-                "privilege",
-                "role",
-                "security"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-acl-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-acl-mvc/issues"
-            },
-            "time": "2014-02-20 15:15:14"
         },
         {
             "name": "robvanaarle/ultimo-cache",
@@ -271,50 +270,6 @@
                 "issues": "https://github.com/robvanaarle/ultimo-config/issues"
             },
             "time": "2014-02-19 16:35:38"
-        },
-        {
-            "name": "robvanaarle/ultimo-config-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-config-mvc.git",
-                "reference": "94aa2a0ce70bc8f884d2753ed1205d06d165caea"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-config-mvc/zipball/94aa2a0ce70bc8f884d2753ed1205d06d165caea",
-                "reference": "94aa2a0ce70bc8f884d2753ed1205d06d165caea",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-config": "dev-master",
-                "robvanaarle/ultimo-mvc": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Module file configurations for Ultimo MVC.",
-            "keywords": [
-                "Module",
-                "UltimoMVC",
-                "config"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-config-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-config-mvc/issues"
-            },
-            "time": "2014-02-19 16:36:58"
         },
         {
             "name": "robvanaarle/ultimo-css",
@@ -481,49 +436,6 @@
             "time": "2015-05-14 07:16:51"
         },
         {
-            "name": "robvanaarle/ultimo-form-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-form-mvc.git",
-                "reference": "b40284fb1d75612269d04c9e02b3f3b84bfa24c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-form-mvc/zipball/b40284fb1d75612269d04c9e02b3f3b84bfa24c3",
-                "reference": "b40284fb1d75612269d04c9e02b3f3b84bfa24c3",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-form": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Form handling for Ultimo MVC",
-            "keywords": [
-                "UltimoMVC",
-                "form",
-                "http"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-form-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-form-mvc/issues"
-            },
-            "time": "2014-02-19 17:04:17"
-        },
-        {
             "name": "robvanaarle/ultimo-html",
             "version": "dev-master",
             "source": {
@@ -641,68 +553,22 @@
             "time": "2014-02-20 15:18:55"
         },
         {
-            "name": "robvanaarle/ultimo-locale-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-locale-mvc.git",
-                "reference": "89d01034f1d8aa77700eaffa2003fc52073a1204"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-locale-mvc/zipball/89d01034f1d8aa77700eaffa2003fc52073a1204",
-                "reference": "89d01034f1d8aa77700eaffa2003fc52073a1204",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-locale": "dev-master",
-                "robvanaarle/ultimo-mvc": "dev-master",
-                "robvanaarle/ultimo-phptpl": "dev-master",
-                "robvanaarle/ultimo-session": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Locale formatting for Ultimo MVC",
-            "keywords": [
-                "UltimoMVC",
-                "format",
-                "locale"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-locale-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-locale-mvc/issues"
-            },
-            "time": "2014-02-20 15:20:54"
-        },
-        {
             "name": "robvanaarle/ultimo-mvc",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robvanaarle/ultimo-mvc.git",
-                "reference": "bd1a626bade57b4880f42677937bb5f9350662c8"
+                "reference": "980e6899cfcfe83b94c7a051be05bfe920b3ba6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc/zipball/bd1a626bade57b4880f42677937bb5f9350662c8",
-                "reference": "bd1a626bade57b4880f42677937bb5f9350662c8",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc/zipball/980e6899cfcfe83b94c7a051be05bfe920b3ba6d",
+                "reference": "980e6899cfcfe83b94c7a051be05bfe920b3ba6d",
                 "shasum": ""
             },
             "require": {
                 "robvanaarle/ultimo-http": "dev-master",
-                "robvanaarle/ultimo-phptpl-mvc": "dev-master"
+                "robvanaarle/ultimo-mvc-phptpl": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -727,21 +593,26 @@
                 "source": "https://github.com/robvanaarle/ultimo-mvc/tree/master",
                 "issues": "https://github.com/robvanaarle/ultimo-mvc/issues"
             },
-            "time": "2014-02-20 19:47:47"
+            "time": "2015-05-23 16:31:43"
         },
         {
-            "name": "robvanaarle/ultimo-orm",
+            "name": "robvanaarle/ultimo-mvc-acl",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-orm.git",
-                "reference": "eb06cbedc3577756433f1b6d6bf39e206c463fbe"
+                "url": "https://github.com/robvanaarle/ultimo-mvc-acl.git",
+                "reference": "88b3a385f04e014f1ed08f1ef102f054561dc311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-orm/zipball/eb06cbedc3577756433f1b6d6bf39e206c463fbe",
-                "reference": "eb06cbedc3577756433f1b6d6bf39e206c463fbe",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-acl/zipball/88b3a385f04e014f1ed08f1ef102f054561dc311",
+                "reference": "88b3a385f04e014f1ed08f1ef102f054561dc311",
                 "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-acl": "dev-master",
+                "robvanaarle/ultimo-mvc": "dev-master",
+                "robvanaarle/ultimo-session": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -757,34 +628,171 @@
                     "name": "Rob van Aarle"
                 }
             ],
-            "description": "Object relational mapper",
+            "description": "Access control list for Ultimo MVC",
             "keywords": [
-                "lightweight",
-                "orm"
+                "UltimoMVC",
+                "access",
+                "acl",
+                "privilege",
+                "role",
+                "security"
             ],
             "support": {
-                "source": "https://github.com/robvanaarle/ultimo-orm/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-orm/issues"
+                "source": "https://github.com/robvanaarle/ultimo-mvc-acl/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-acl/issues"
             },
-            "time": "2015-05-10 07:37:04"
+            "time": "2015-05-23 16:12:05"
         },
         {
-            "name": "robvanaarle/ultimo-orm-mvc",
+            "name": "robvanaarle/ultimo-mvc-config",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-orm-mvc.git",
-                "reference": "811737c7b7db6699a616f6dfb0399383a1af2a13"
+                "url": "https://github.com/robvanaarle/ultimo-mvc-config.git",
+                "reference": "6570dc8e42bc03e7abb42ebee6ee502b0ad7547d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-orm-mvc/zipball/811737c7b7db6699a616f6dfb0399383a1af2a13",
-                "reference": "811737c7b7db6699a616f6dfb0399383a1af2a13",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-config/zipball/6570dc8e42bc03e7abb42ebee6ee502b0ad7547d",
+                "reference": "6570dc8e42bc03e7abb42ebee6ee502b0ad7547d",
                 "shasum": ""
             },
             "require": {
-                "robvanaarle/ultimo-config-mvc": "dev-master",
+                "robvanaarle/ultimo-config": "dev-master",
+                "robvanaarle/ultimo-mvc": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Module file configurations for Ultimo MVC.",
+            "keywords": [
+                "Module",
+                "UltimoMVC",
+                "config"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-mvc-config/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-config/issues"
+            },
+            "time": "2015-05-23 16:08:05"
+        },
+        {
+            "name": "robvanaarle/ultimo-mvc-form",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-mvc-form.git",
+                "reference": "f145c23ba1fcdc1b24ddf66e3f6fff76cef7b01a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-form/zipball/f145c23ba1fcdc1b24ddf66e3f6fff76cef7b01a",
+                "reference": "f145c23ba1fcdc1b24ddf66e3f6fff76cef7b01a",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-form": "dev-master",
+                "robvanaarle/ultimo-mvc": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Form handling for Ultimo MVC",
+            "keywords": [
+                "UltimoMVC",
+                "form",
+                "http"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-mvc-form/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-form/issues"
+            },
+            "time": "2015-05-23 16:00:04"
+        },
+        {
+            "name": "robvanaarle/ultimo-mvc-locale",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-mvc-locale.git",
+                "reference": "5d2ca435e9d385e492dc3873db9e0b0a15c69fe6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-locale/zipball/5d2ca435e9d385e492dc3873db9e0b0a15c69fe6",
+                "reference": "5d2ca435e9d385e492dc3873db9e0b0a15c69fe6",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-locale": "dev-master",
                 "robvanaarle/ultimo-mvc": "dev-master",
+                "robvanaarle/ultimo-session": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Locale formatting for Ultimo MVC",
+            "keywords": [
+                "UltimoMVC",
+                "format",
+                "locale"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-mvc-locale/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-locale/issues"
+            },
+            "time": "2015-05-23 16:16:42"
+        },
+        {
+            "name": "robvanaarle/ultimo-mvc-orm",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-mvc-orm.git",
+                "reference": "e2ad5258052a9408912e8e1948312469fba494bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-orm/zipball/e2ad5258052a9408912e8e1948312469fba494bc",
+                "reference": "e2ad5258052a9408912e8e1948312469fba494bc",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-mvc": "dev-master",
+                "robvanaarle/ultimo-mvc-config": "dev-master",
                 "robvanaarle/ultimo-orm": "dev-master"
             },
             "type": "library",
@@ -807,71 +815,23 @@
                 "orm"
             ],
             "support": {
-                "source": "https://github.com/robvanaarle/ultimo-orm-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-orm-mvc/issues"
+                "source": "https://github.com/robvanaarle/ultimo-mvc-orm/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-orm/issues"
             },
-            "time": "2014-02-19 21:00:03"
+            "time": "2015-05-23 16:05:33"
         },
         {
-            "name": "robvanaarle/ultimo-phptpl",
+            "name": "robvanaarle/ultimo-mvc-phptpl",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-phptpl.git",
-                "reference": "d43ecbbfe1f007338a21952335b20a92a0562508"
+                "url": "https://github.com/robvanaarle/ultimo-mvc-phptpl.git",
+                "reference": "03a657c21e3fd5609359c3d669e3974b4472a58b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-phptpl/zipball/d43ecbbfe1f007338a21952335b20a92a0562508",
-                "reference": "d43ecbbfe1f007338a21952335b20a92a0562508",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-css": "dev-master",
-                "robvanaarle/ultimo-html": "dev-master"
-            },
-            "suggest": {
-                "mrclay/minify": "Allows the user of the mrclay's decorators, tested with 2.2.*",
-                "robvanaarle/ultimo-filemtimecache": "Allows the use of the HeadTagFileCache helper decorators",
-                "robvanaarle/ultimo-slug": "Allows the use of the Slugify helper"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Template engine in PHP",
-            "keywords": [
-                "php",
-                "template"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-phptpl/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-phptpl/issues"
-            },
-            "time": "2015-05-14 05:26:29"
-        },
-        {
-            "name": "robvanaarle/ultimo-phptpl-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-phptpl-mvc.git",
-                "reference": "32d1d9450a1b02982b6393f7b74e0a0292ec2e91"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-phptpl-mvc/zipball/32d1d9450a1b02982b6393f7b74e0a0292ec2e91",
-                "reference": "32d1d9450a1b02982b6393f7b74e0a0292ec2e91",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-phptpl/zipball/03a657c21e3fd5609359c3d669e3974b4472a58b",
+                "reference": "03a657c21e3fd5609359c3d669e3974b4472a58b",
                 "shasum": ""
             },
             "require": {
@@ -898,10 +858,142 @@
                 "phptpl"
             ],
             "support": {
-                "source": "https://github.com/robvanaarle/ultimo-phptpl-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-phptpl-mvc/issues"
+                "source": "https://github.com/robvanaarle/ultimo-mvc-phptpl/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-phptpl/issues"
             },
-            "time": "2014-02-19 20:16:10"
+            "time": "2015-05-23 16:18:49"
+        },
+        {
+            "name": "robvanaarle/ultimo-mvc-translate",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-mvc-translate.git",
+                "reference": "32dc9bad9ccdc2a0e90688f6806a0cc0f1cca599"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-mvc-translate/zipball/32dc9bad9ccdc2a0e90688f6806a0cc0f1cca599",
+                "reference": "32dc9bad9ccdc2a0e90688f6806a0cc0f1cca599",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-mvc": "dev-master",
+                "robvanaarle/ultimo-session": "dev-master",
+                "robvanaarle/ultimo-translate": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Translations for Ultimo MVC",
+            "keywords": [
+                "UltimoMVC",
+                "translate"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-mvc-translate/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-mvc-translate/issues"
+            },
+            "time": "2015-05-23 16:17:48"
+        },
+        {
+            "name": "robvanaarle/ultimo-orm",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-orm.git",
+                "reference": "b9e2ba541bf6763fa0e1a34da06ec01b503845da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-orm/zipball/b9e2ba541bf6763fa0e1a34da06ec01b503845da",
+                "reference": "b9e2ba541bf6763fa0e1a34da06ec01b503845da",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Object relational mapper",
+            "keywords": [
+                "lightweight",
+                "orm"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-orm/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-orm/issues"
+            },
+            "time": "2015-05-21 19:36:01"
+        },
+        {
+            "name": "robvanaarle/ultimo-phptpl",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robvanaarle/ultimo-phptpl.git",
+                "reference": "98c35eec1b2e697224c75a0e93235f4f953f6a0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robvanaarle/ultimo-phptpl/zipball/98c35eec1b2e697224c75a0e93235f4f953f6a0c",
+                "reference": "98c35eec1b2e697224c75a0e93235f4f953f6a0c",
+                "shasum": ""
+            },
+            "require": {
+                "robvanaarle/ultimo-css": "dev-master",
+                "robvanaarle/ultimo-html": "dev-master"
+            },
+            "suggest": {
+                "mrclay/minify": "Allows the user of the mrclay's decorators, tested with 2.2.*",
+                "robvanaarle/ultimo-cache": "Allows the use of the Cache helper",
+                "robvanaarle/ultimo-filemtimecache": "Allows the use of the HeadTagFileCache helper decorators",
+                "robvanaarle/ultimo-slug": "Allows the use of the Slugify helper"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ultimo\\": "src/ultimo/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Rob van Aarle"
+                }
+            ],
+            "description": "Template engine in PHP",
+            "keywords": [
+                "php",
+                "template"
+            ],
+            "support": {
+                "source": "https://github.com/robvanaarle/ultimo-phptpl/tree/master",
+                "issues": "https://github.com/robvanaarle/ultimo-phptpl/issues"
+            },
+            "time": "2015-05-23 15:36:59"
         },
         {
             "name": "robvanaarle/ultimo-session",
@@ -982,51 +1074,6 @@
                 "issues": "https://github.com/robvanaarle/ultimo-translate/issues"
             },
             "time": "2014-02-20 15:25:19"
-        },
-        {
-            "name": "robvanaarle/ultimo-translate-mvc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/robvanaarle/ultimo-translate-mvc.git",
-                "reference": "cf78c41bcd3264fe8a882006a8a944959553cf70"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/robvanaarle/ultimo-translate-mvc/zipball/cf78c41bcd3264fe8a882006a8a944959553cf70",
-                "reference": "cf78c41bcd3264fe8a882006a8a944959553cf70",
-                "shasum": ""
-            },
-            "require": {
-                "robvanaarle/ultimo-mvc": "dev-master",
-                "robvanaarle/ultimo-phptpl-mvc": "dev-master",
-                "robvanaarle/ultimo-session": "dev-master",
-                "robvanaarle/ultimo-translate": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "ultimo\\": "src/ultimo/"
-                }
-            },
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Rob van Aarle"
-                }
-            ],
-            "description": "Translations for Ultimo MVC",
-            "keywords": [
-                "UltimoMVC",
-                "translate"
-            ],
-            "support": {
-                "source": "https://github.com/robvanaarle/ultimo-translate-mvc/tree/master",
-                "issues": "https://github.com/robvanaarle/ultimo-translate-mvc/issues"
-            },
-            "time": "2014-02-20 16:34:40"
         },
         {
             "name": "robvanaarle/ultimo-validation",
@@ -1507,16 +1554,20 @@
     "stability-flags": {
         "robvanaarle/ultimo-mvc": 20,
         "robvanaarle/ultimo-error": 20,
-        "robvanaarle/ultimo-form-mvc": 20,
-        "robvanaarle/ultimo-acl-mvc": 20,
-        "robvanaarle/ultimo-config-mvc": 20,
-        "robvanaarle/ultimo-locale-mvc": 20,
-        "robvanaarle/ultimo-translate-mvc": 20,
-        "robvanaarle/ultimo-orm-mvc": 20,
+        "robvanaarle/ultimo-mvc-form": 20,
+        "robvanaarle/ultimo-mvc-phptpl": 20,
+        "robvanaarle/ultimo-mvc-config": 20,
+        "robvanaarle/ultimo-mvc-locale": 20,
+        "robvanaarle/ultimo-mvc-translate": 20,
+        "robvanaarle/ultimo-mvc-orm": 20,
         "robvanaarle/ultimo-filemtimecache": 20,
-        "robvanaarle/ucms-user": 20
+        "robvanaarle/ucms-user": 20,
+        "robvanaarle/ucms-tournamentplanner": 20
     },
     "prefer-stable": false,
-    "platform": [],
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.3"
+    },
     "platform-dev": []
 }
