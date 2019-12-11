@@ -3,11 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <base href="<?php echo $this->baseUrl()?>" />
-    <?php $this->headTitle('Aviko Cup - toernooi beheer') ?>
+    <?php $this->headTitle('2 Brüder Cup - toernooi beheer') ?>
     <?php echo $this->headMeta() ?>
     <?php echo $this->headTitle()?>
     <?php echo $this->headStyle()?>
-    
+
     <?php $this->headLink()->prependStylesheet("ats2015/general/css/master.scss") ?>
     <?php echo $this->headLink()?>
   </head>
@@ -31,8 +31,8 @@
     <?php if ($this->authorizer()->isAllowed('user.user.index', null, 'user')): ?>
     | <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'user', 'action' => 'index')) ?>">Gebruikers</a>
     <?php endif ?>
-      
-      
+
+
       <div id="user-menu">
         <?php if ($this->authorizer()->getUser()->getRole() !== 'guest'): ?>
           <a href="<?php echo $this->url(array('module' => 'user', 'controller' => 'member', 'action' => 'index')) ?>">Mijn account</a> |
@@ -42,7 +42,7 @@
         <?php endif ?>
       </div>
     </div>
-    
+
     <div id="subtitle">
       <?php echo $this->subtitle() ?>
     </div>
@@ -52,8 +52,8 @@
       <?php echo $this->content ?>
       </div>
     </div>
-    
+
     <?php $this->mediaLibrary()->prependJavascriptFile('jquery', 'jquery.min.js') ?>
     <?php echo $this->headScript()?>
   </body>
-</html>  
+</html>
